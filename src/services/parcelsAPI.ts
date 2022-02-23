@@ -1,7 +1,7 @@
-import { Coordinates } from "../interfaces/coordinates.interface";
+import { LineCoordinates } from "../interfaces/line-coordinates.type";
 import { ParcelInfo } from "../interfaces/parcel-info.interface";
 
-export const getParcelsInfo = async (pipeCoords: Coordinates[]) => {
+export const getParcelsInfo = async (pipeCoords: LineCoordinates[]) => {
   console.log("LOADING DATA...");
   const reqData = JSON.stringify(pipeCoords);
   const response = await fetch(
@@ -33,5 +33,20 @@ export const getParcelsCoords = async (parcels: ParcelInfo[]) => {
   });
   if (response.status !== 201) console.log("ERROR GETTING PARCELS COORDS");
   console.log("SUCCESS GETTING PARCELS COORDS");
+  return await response.json();
+};
+
+export const convertToDeg = async (pipeCoords: LineCoordinates[]) => {
+  console.log("LOADING DATA...");
+  const reqData = JSON.stringify(pipeCoords);
+  const response = await fetch("http://localhost:3000/parcels/coordsToDeg", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: reqData,
+  });
+  if (response.status !== 201) console.log("ERROR CONVERTING COORDS");
+  console.log("SUCCESS CONVERTING COORDS");
   return await response.json();
 };

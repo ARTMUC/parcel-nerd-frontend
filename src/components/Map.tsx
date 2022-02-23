@@ -7,11 +7,14 @@ import { ParcelBounds } from '../interfaces/parcel-boundaries.type';
 
 import "leaflet/dist/leaflet.css";
 import { LatLngExpression } from 'leaflet';
+import { LoadingCircle } from './LoadingCircle';
+import { LineCoordinates } from '../interfaces/line-coordinates.type';
 
 
-export const Map = ({ parcelsCoords, isLoading }: MapProps) => {
+export const Map = ({ parcelsCoords, pipeCoordsDeg }: MapProps) => {
 
     const redLines = { color: "red" };
+    const blueLines = { color: "blue" };
 
     const wmsProps = {
         layers: "dzialki,numery_dzialek",
@@ -24,10 +27,11 @@ export const Map = ({ parcelsCoords, isLoading }: MapProps) => {
 
     return (
         <>
-            <MapContainer center={[50.23, 18.97]} zoom={100} scrollWheelZoom={true} style={{ height: "100vh" }}>
+            <MapContainer center={pipeCoordsDeg[0]} zoom={100} scrollWheelZoom={true} style={{ height: "100vh" }}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <WMSTileLayer {...wmsProps} />
-                {isLoading ? 'LOADING...' : <Polyline pathOptions={redLines} positions={parcelsCoords} />}
+                <Polyline pathOptions={redLines} positions={parcelsCoords} />
+                <Polyline pathOptions={blueLines} positions={pipeCoordsDeg} />
             </MapContainer>
         </>
     );
@@ -35,6 +39,6 @@ export const Map = ({ parcelsCoords, isLoading }: MapProps) => {
 
 type MapProps = {
     parcelsCoords: ParcelBounds[],
-    isLoading: boolean,
+    pipeCoordsDeg: LineCoordinates[]
 };
 
