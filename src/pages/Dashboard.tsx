@@ -14,7 +14,13 @@ export const Dashboard = () => {
     const [pipeCoordsDeg, setPipeCoordsDeg] = useState<LineCoordinates[]>([]);
     const [parcels, setParcels] = useState<ParcelInfo[]>([]);
     const [parcelsCoords, setParcelCoords] = useState<ParcelBounds[]>([]);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+    const [isCheckingBounds, setIsCheckingBounds] = useState(false)
+
+    const toggleCheckBounds = () => {
+        setIsCheckingBounds(prev => !prev)
+    }
+
 
 
     useEffect(() => {
@@ -35,8 +41,8 @@ export const Dashboard = () => {
 
     return (
         <div className={styles.container}>
-            {isLoading ? <LoadingCircle /> : <Map parcelsCoords={parcelsCoords} pipeCoordsDeg={pipeCoordsDeg} />}
-            <Panel />
+            {isLoading ? <LoadingCircle /> : <Map parcelsCoords={parcelsCoords} pipeCoordsDeg={pipeCoordsDeg} isCheckingBounds={isCheckingBounds} />}
+            <Panel toggleCheckBounds={toggleCheckBounds} />
         </div>
     );
 };
