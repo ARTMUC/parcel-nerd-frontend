@@ -50,3 +50,18 @@ export const convertToDeg = async (pipeCoords: LineCoordinates[]) => {
   console.log("SUCCESS CONVERTING COORDS");
   return await response.json();
 };
+
+export const getParcelsInfoByLatLng = async (pipeCoords: LineCoordinates[]) => {
+  console.log("LOADING DATA...");
+  const reqData = JSON.stringify(pipeCoords);
+  const response = await fetch("http://localhost:3000/parcels/getByLatLng", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: reqData,
+  });
+  if (response.status !== 201) console.log("ERROR GETTING PARCELS INFO");
+  console.log("SUCCESS GETTING PARCELS INFO");
+  return await response.json();
+};

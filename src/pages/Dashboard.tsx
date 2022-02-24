@@ -36,13 +36,16 @@ export const Dashboard = () => {
         })()
     }, []);
 
-
+    const addParcelToList = (info: ParcelInfo[], coords: ParcelBounds) => {
+        setParcels((prev) => [...prev, ...info])
+        setParcelCoords((prev) => [...prev, coords])
+    }
 
 
     return (
         <div className={styles.container}>
-            {isLoading ? <LoadingCircle /> : <Map parcelsCoords={parcelsCoords} pipeCoordsDeg={pipeCoordsDeg} isCheckingBounds={isCheckingBounds} />}
-            <Panel toggleCheckBounds={toggleCheckBounds} />
+            {isLoading ? <LoadingCircle /> : <Map parcelsCoords={parcelsCoords} pipeCoordsDeg={pipeCoordsDeg} isCheckingBounds={isCheckingBounds} parcels={parcels} addParcelToList={addParcelToList} />}
+            <Panel toggleCheckBounds={toggleCheckBounds} parcels={parcels} />
         </div>
     );
 };
