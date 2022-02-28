@@ -1,0 +1,81 @@
+.container {
+  padding: 10px;
+  position: absolute;
+  z-index: 800;
+  background-color: white;
+  top: 25%;
+  max-height: 650px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px; /* Need a specific value to work */
+  display: grid;
+  grid-template-rows: 20px 1fr 20px;
+  border: 2px solid rgb(204, 204, 204);
+  border-radius: 2px;
+  place-items: center;
+}
+
+.pipe_list {
+  list-style-type: none;
+  width: 550px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 350px;
+}
+
+.list_element {
+  /* margin: 5px; */
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 50px;
+  gap: 0px;
+  height: 20px;
+}
+
+.btn_container {
+  margin: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.button,
+.button_close {
+  background-color: white;
+  border: 2px solid rgb(204, 204, 204);
+  border-radius: 2px;
+  margin: 1px;
+
+  text-align: center;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.button_close {
+  margin-left: auto;
+  width: 50px;
+}
+
+.button:hover {
+  background-color: lightblue;
+}
+
+.button_close:hover {
+  background-color: rgb(245, 86, 86);
+}
+
+input {
+  background-color: white;
+  border: 2px solid rgb(204, 204, 204);
+  border-radius: 2px;
+  margin: 1px;
+
+  text-align: center;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.input:hover {
+  background-color: lightblue;
+}

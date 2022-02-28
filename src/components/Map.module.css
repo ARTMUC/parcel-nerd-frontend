@@ -1,0 +1,9 @@
+.parcel {
+  fill: rgb(113, 11, 122);
+  stroke: rgb(243, 52, 218);
+}
+
+.parcel:hover {
+  fill: green;
+  stroke: green;
+}
