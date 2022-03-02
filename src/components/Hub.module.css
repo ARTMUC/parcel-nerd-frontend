@@ -1,16 +1,18 @@
-.hub_container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.container {
   position: absolute;
   top: 20px;
   right: 40px;
   width: 150px;
-  height: 100px;
+
   z-index: 800;
-  /* background-color: white; */
-  padding: 0;
-  border-radius: 5px;
+
+  display: grid;
+
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+
+  gap: 5px;
+  /* height: 100%; */
 }
 .hub_btn {
   list-style-type: none;

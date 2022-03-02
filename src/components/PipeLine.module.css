@@ -1,81 +1,48 @@
 .container {
-  padding: 10px;
   position: absolute;
   z-index: 800;
-  background-color: white;
-  top: 25%;
-  max-height: 650px;
+  top: 5%;
+  /* max-height: 800px; */
+  height: 90vh;
   left: 0;
   right: 0;
+  background-color: rgb(224, 224, 224);
   margin-left: auto;
   margin-right: auto;
-  width: 600px; /* Need a specific value to work */
+  width: 700px; /* Need a specific value to work */
   display: grid;
   grid-template-rows: 20px 1fr 20px;
   border: 2px solid rgb(204, 204, 204);
-  border-radius: 2px;
+  /* gap: 20px; */
+  border-radius: 10px;
   place-items: center;
 }
 
 .pipe_list {
   list-style-type: none;
-  width: 550px;
+  width: 650px;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 350px;
+  height: 500px;
 }
 
 .list_element {
   /* margin: 5px; */
   padding: 5px;
   display: grid;
-  grid-template-columns: 1fr 1fr 50px;
-  gap: 0px;
-  height: 20px;
+  grid-template-columns: 1fr 1fr 100px;
+  gap: 5px;
+  height: 55px;
+  width: 600px;
+}
+
+.button_close {
+  margin-top: 30px;
+  margin-left: auto;
 }
 
 .btn_container {
-  margin: 10px;
+  margin-bottom: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-}
-
-.button,
-.button_close {
-  background-color: white;
-  border: 2px solid rgb(204, 204, 204);
-  border-radius: 2px;
-  margin: 1px;
-
-  text-align: center;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.button_close {
-  margin-left: auto;
-  width: 50px;
-}
-
-.button:hover {
-  background-color: lightblue;
-}
-
-.button_close:hover {
-  background-color: rgb(245, 86, 86);
-}
-
-input {
-  background-color: white;
-  border: 2px solid rgb(204, 204, 204);
-  border-radius: 2px;
-  margin: 1px;
-
-  text-align: center;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.input:hover {
-  background-color: lightblue;
 }

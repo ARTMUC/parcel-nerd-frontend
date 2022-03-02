@@ -18,7 +18,7 @@ export const Dashboard = () => {
     const [parcelsCoords, setParcelCoords] = useState<ParcelBounds[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isCheckingBounds, setIsCheckingBounds] = useState(false)
-    const [isWmsShown, setIsWmsShown] = useState(false)
+    const [isWmsShown, setIsWmsShown] = useState(true)
     const [isPipeEdit, setIsPipeEdit] = useState(false)
 
     const handleTogglePipeEdit = () => setIsPipeEdit(prev => !prev);
@@ -84,25 +84,15 @@ export const Dashboard = () => {
         setIsLoading(false)
     }
 
-    // useEffect(() => {
-    //     (async () => {
-    //         setIsLoading(true)
-    //         const pipeConvertedCoords = await convertToDeg(pipeCoords)
-    //         const parcelsInfo = await getParcelsInfo(pipeCoords);
-    //         const parcelsBounds = await getParcelsCoords(parcelsInfo);
-    //         setPipeCoordsDeg(pipeConvertedCoords);
-    //         setParcels(parcelsInfo);
-    //         setParcelCoords(parcelsBounds);
-    //         setIsLoading(false)
-    //     })()
-    // }, []);
 
     return (
         <div className={styles.container}>
-            <Hub toggleCheckBounds={toggleCheckBounds} toggleWMSDisplay={toggleWMSDisplay} isCheckingBounds={isCheckingBounds} handleTogglePipeEdit={handleTogglePipeEdit} />
+            <Hub toggleCheckBounds={toggleCheckBounds} toggleWMSDisplay={toggleWMSDisplay} isCheckingBounds={isCheckingBounds} handleTogglePipeEdit={handleTogglePipeEdit} isPipeEdit={isPipeEdit} isWmsShown={isWmsShown} />
+
             {isLoading ? <LoadingCircle /> : <Map parcelsCoords={parcelsCoords} pipeCoordsDeg={pipeCoordsDeg} isCheckingBounds={isCheckingBounds} parcels={parcels} addParcelToList={addParcelToList} isWmsShown={isWmsShown} checkIfExist={checkIfExist} toggleCheckBounds={toggleCheckBounds} />}
-            {isPipeEdit && <PipeLine pipeCoords={pipeCoords} handleAddNewPipeCoord={handleAddNewPipeCoord} handleChangeCoord={handleChangeCoord} handleDeleteCoord={handleDeleteCoord} fetchParcelsData={fetchParcelsData} handleDrawPipes={handleDrawPipes} handleTogglePipeEdit={handleTogglePipeEdit} />}
-            {/* <Panel toggleCheckBounds={toggleCheckBounds} parcels={parcels} /> */}
+
+            {isPipeEdit && <PipeLine pipeCoords={pipeCoords} handleAddNewPipeCoord={handleAddNewPipeCoord} handleChangeCoord={handleChangeCoord} handleDeleteCoord={handleDeleteCoord} fetchParcelsData={fetchParcelsData} handleDrawPipes={handleDrawPipes} handleTogglePipeEdit={handleTogglePipeEdit} isPipeEdit={isPipeEdit} />}
+
         </div>
     );
 };

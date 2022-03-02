@@ -12,6 +12,9 @@ import { LineCoordinates } from '../interfaces/line-coordinates.type';
 import { getParcelsCoords, getParcelsInfoByLatLng } from '../services/parcelsAPI';
 import { ParcelInfo } from '../interfaces/parcel-info.interface';
 import L, { LatLngBoundsLiteral } from 'leaflet';
+import IconButton from '@mui/material/IconButton';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Fab } from '@mui/material';
 
 
 
@@ -32,6 +35,7 @@ export const Map = ({ parcelsCoords, pipeCoordsDeg, isCheckingBounds, addParcelT
         control: true,
         tiled: true,
         maxZoom: 50,
+        transparent: true,
     }
     const locate = () => {
         map.locate().on("locationfound", function (e: any) {
@@ -84,7 +88,13 @@ export const Map = ({ parcelsCoords, pipeCoordsDeg, isCheckingBounds, addParcelT
                 })}
                 <Polyline pathOptions={blueLines} positions={pipeCoordsDeg} />
             </MapContainer>
-            <button onClick={locate}>locate</button>
+
+            <div className={styles.button}>
+                <Fab color={"primary"} onClick={locate}>
+                    <LocationOnIcon fontSize="large" />
+                </Fab>
+            </div>
+
         </>
     );
 };
