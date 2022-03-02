@@ -14,22 +14,3 @@
   gap: 5px;
   /* height: 100%; */
 }
-.hub_btn {
-  list-style-type: none;
-  background-color: white;
-  border: 2px solid rgb(204, 204, 204);
-  border-radius: 2px;
-  margin: 1px;
-  width: 150px;
-  text-align: center;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.selected {
-  background-color: lightblue;
-}
-
-.hub_btn:hover {
-  background-color: lightblue;
-}

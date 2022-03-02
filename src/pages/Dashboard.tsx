@@ -35,10 +35,10 @@ export const Dashboard = () => {
     const handleChangeCoord = (e: { target: { dataset: { index: string; axis: string; }; value: number; }; }) => {
         const pointIndex = e.target.dataset.index
         const axis = e.target.dataset.axis
+
         setPipeCoords((prev) => {
             const updatedArray = prev.map((el, i) => {
                 if (+pointIndex !== i) return el
-
                 el[+axis] = +e.target.value
                 return el
             })

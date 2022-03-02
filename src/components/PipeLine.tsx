@@ -31,8 +31,20 @@ export const PipeLine = ({ pipeCoords, handleAddNewPipeCoord, handleChangeCoord,
                         {pipeCoords.map((e, index) => {
                             return (
                                 <li className={styles.list_element}>
-                                    <TextField id="outlined-basic" label="x" variant="outlined" value={e[0]} data-index={index} data-axis={0} onChange={e => handleChangeCoord(e)} />
-                                    <TextField id="outlined-basic" label="y" variant="outlined" value={e[1]} data-index={index} data-axis={1} onChange={e => handleChangeCoord(e)} />
+
+                                    <TextField id="outlined-basic" label="x" variant="outlined" value={e[0]} inputProps={{
+                                        'data-index': `${index}`,
+                                        'data-axis': 0
+                                    }} onChange={e => handleChangeCoord(e)} type="number" />
+                                    <TextField id="outlined-basic" label="y" variant="outlined" value={e[1]} inputProps={{
+                                        'data-index': `${index}`,
+                                        'data-axis': 1
+                                    }} onChange={e => handleChangeCoord(e)} type="number" />
+
+
+
+                                    {/* <TextField id="outlined-basic" label="x" variant="outlined" value={e[0]} data-index={index} data-axis={0} onChange={e => handleChangeCoord(e)} />
+                                    <TextField id="outlined-basic" label="y" variant="outlined" value={e[1]} data-index={index} data-axis={1} onChange={e => handleChangeCoord(e)} /> */}
                                     <Button variant="outlined" data-index={index} onClick={(e) => handleDeleteCoord(e)} startIcon={<DeleteIcon />}>
                                         Delete
                                     </Button>
