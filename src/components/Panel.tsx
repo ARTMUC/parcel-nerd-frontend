@@ -9,7 +9,7 @@ export const Panel = ({ toggleCheckBounds, parcels }: PanelProps) => {
             please input line coordinates here
             <button onClick={toggleCheckBounds}>check parcel bounds</button>
             {parcels && parcels.map((parcel) => {
-                return <div>{parcel['Identyfikator działki']}</div>
+                return <div></div>
             })}
         </div>
     );

@@ -55,7 +55,7 @@ export const PipeLine = ({ pipeCoords, handleAddNewPipeCoord, handleChangeCoord,
                     <ButtonGroup className={styles.btn_container} size="large" aria-label="large button group">
                         <Button variant="contained" onClick={() => handleAddNewPipeCoord()} >ADD NEW</Button>
                         <Button variant="contained" onClick={() => handleDrawPipes()}>DRAW PIPES</Button>
-                        <Button variant="contained" onClick={() => fetchParcelsData()}>CHECK PARCELS</Button>
+                        <Button onClick={() => fetchParcelsData()}>CHECK PARCELS</Button>
                     </ButtonGroup>
                 </div >
             </Box>

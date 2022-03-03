@@ -9,18 +9,18 @@ import "leaflet/dist/leaflet.css";
 import styles from './Map.module.css';
 import { LoadingCircle } from './LoadingCircle';
 import { LineCoordinates } from '../interfaces/line-coordinates.type';
-import { getParcelsCoords, getParcelsInfoByLatLng } from '../services/parcelsAPI';
 import { ParcelInfo } from '../interfaces/parcel-info.interface';
 import L, { LatLngBoundsLiteral } from 'leaflet';
 import IconButton from '@mui/material/IconButton';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Fab } from '@mui/material';
+import { checkParcelData } from '../services/parcelsAPI';
 
 
 
 
 
-export const Map = ({ parcelsCoords, pipeCoordsDeg, isCheckingBounds, addParcelToList, isWmsShown, checkIfExist, toggleCheckBounds, parcels }: MapProps) => {
+export const Map = ({ pipeCoordsDeg, isCheckingBounds, addParcelToList, isWmsShown, toggleCheckBounds, parcelsInfoList }: MapProps) => {
 
     const [map, setMap] = useState<any>()
 
@@ -46,34 +46,40 @@ export const Map = ({ parcelsCoords, pipeCoordsDeg, isCheckingBounds, addParcelT
             setTimeout(() => { circle.remove() }, 5000)
 
         });
-
     }
+
+
+
 
     useEffect(() => {
 
         if (map && !isCheckingBounds) {
             map.on("click", async function (e: { originalEvent: { srcElement: { _leaflet_id: number; }; }; sourceTarget: { _targets: { [x: string]: { options: { [x: string]: any; }; }; }; }; }) {
+
                 const leafletContainerId = e.originalEvent.srcElement._leaflet_id
-                const parcelIndex = e.sourceTarget._targets[leafletContainerId].options['data-set']
-                const parcelData = parcels[parcelIndex]
+                const parcelId = e.sourceTarget._targets[leafletContainerId].options['data-set']
+                const parcelData = parcelsInfoList.filter(e => e.id === parcelId)
                 if (parcelData) alert(JSON.stringify(parcelData))
             });
             return () => map.off('click')
         }
 
         if (map && isCheckingBounds) {
-            map.on("click", async function (e: { latlng: { lat: number; lng: number; }; }) {
+            map.on("click", async function (e: { latlng: { lat: number; lng: number; }; originalEvent: { srcElement: { _leaflet_id: any; }; }; sourceTarget: { _targets: { [x: string]: { options: { [x: string]: any; }; }; }; }; }) {
 
-                const parcelInfo = await getParcelsInfoByLatLng([[e.latlng.lat, e.latlng.lng]])
-                if (checkIfExist(parcelInfo)) return
+                const parcelInfo = await checkParcelData(e.latlng.lat, e.latlng.lng)
+                const leafletContainerId = e.originalEvent.srcElement._leaflet_id
+                const parcelId = e.sourceTarget._targets[leafletContainerId].options['data-set']
+                const parcelData = parcelsInfoList.filter(e => e.id === parcelId)
 
-                const parcelCoords = await getParcelsCoords(parcelInfo)
-                addParcelToList(parcelInfo, parcelCoords)
+                if (parcelData.length > 0) return
+
+                addParcelToList(parcelInfo)
 
             });
             return () => map.off('click')
         }
-    }, [isCheckingBounds, parcelsCoords])
+    }, [isCheckingBounds, parcelsInfoList])
 
 
 
@@ -83,8 +89,8 @@ export const Map = ({ parcelsCoords, pipeCoordsDeg, isCheckingBounds, addParcelT
             <MapContainer center={pipeCoordsDeg[0] ? pipeCoordsDeg[0] : [50.23, 18.99]} zoom={15} scrollWheelZoom={true} style={{ height: "100vh" }} maxZoom={23} whenCreated={(map) => setMap(map)}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={20} />
                 {isWmsShown && <WMSTileLayer {...wmsProps} />}
-                {parcelsCoords.map((parcel, index) => {
-                    return <Polygon data-set={index} key={index} className={styles.parcel} pathOptions={redLines} positions={parcel} />
+                {parcelsInfoList.map((parcel, index) => {
+                    return <Polygon data-set={parcel.id} key={index} className={styles.parcel} pathOptions={redLines} positions={parcel.boundCoords} />
                 })}
                 <Polyline pathOptions={blueLines} positions={pipeCoordsDeg} />
             </MapContainer>
@@ -100,13 +106,11 @@ export const Map = ({ parcelsCoords, pipeCoordsDeg, isCheckingBounds, addParcelT
 };
 
 type MapProps = {
-    parcelsCoords: ParcelBounds[],
     pipeCoordsDeg: LineCoordinates[],
     isCheckingBounds: boolean,
-    parcels: ParcelInfo[],
-    addParcelToList: (info: ParcelInfo[], coords: ParcelBounds[]) => void,
+    addParcelToList: (parcelInfo: ParcelInfo) => void
     isWmsShown: boolean,
-    checkIfExist: (parcelInfo: ParcelInfo[]) => boolean
     toggleCheckBounds: () => void,
+    parcelsInfoList: ParcelInfo[]
 };
 
