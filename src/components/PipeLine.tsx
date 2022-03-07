@@ -1,17 +1,36 @@
 // rscp
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { LineCoordinates } from '../interfaces/line-coordinates.type';
 
-import { Box, Modal, TextField, Typography } from '@mui/material';
+import { Box, Modal, TextareaAutosize, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import styles from './PipeLine.module.css';
+import { ConnectingAirportsOutlined } from '@mui/icons-material';
 
-export const PipeLine = ({ pipeCoords, handleAddNewPipeCoord, handleChangeCoord, handleDeleteCoord, fetchParcelsData, handleDrawPipes, handleTogglePipeEdit, isPipeEdit }: PipeLineProps) => {
+export const PipeLine = ({ handleTogglePipeEdit, isPipeEdit, handleAddNewPipeCoord, handleDeletePipeCoord, pipeCoords }: PipeLineProps) => {
+
+    const [acadPoints, setAcadPoints] = useState('')
+
+
+
+    const parseInput = (string: string) => {
+        const r = /[X]=[0-9]*\.[0-9]+\s*[Y]=[0-9]*\.[0-9]+/g;
+        const r2 = /[0-9]*\.[0-9]+/g;
+        setAcadPoints('')
+        return [...string.matchAll(r)].map((e) => {
+            const arr = [...e[0].matchAll(r2)]
+            return [Number(...arr[0]), Number(...arr[1])] as LineCoordinates
+        }) as LineCoordinates[]
+    }
+
+
+
+
 
     return (
         <Modal
@@ -27,52 +46,52 @@ export const PipeLine = ({ pipeCoords, handleAddNewPipeCoord, handleChangeCoord,
                             <CloseIcon fontSize="large" />
                         </IconButton>
                     </div>
-                    <ul className={styles.pipe_list}>
-                        {pipeCoords.map((e, index) => {
+                    <TextField
+                        id="outlined-multiline-flexible"
+                        label="Pipe Coordinates"
+                        multiline
+                        minRows='3'
+                        maxRows="3"
+                        placeholder='Example input. You can copy coords from CAD "list" method :
+                        at point  X=6537790.941  Y=5545664.794  Z=   10.260
+                        at point  X=6537795.174  Y=5545664.985  Z=   10.260
+                  '
+                        value={acadPoints}
+                        onChange={e => setAcadPoints(e.target.value)}
+                        variant="outlined"
+                        style={{ minWidth: 500, maxWidth: 500 }}
+                    />
+                    {<ul className={styles.pipe_list}>
+                        {pipeCoords.length > 0 && pipeCoords.map((coords, index) => {
                             return (
                                 <li className={styles.list_element}>
-
-                                    <TextField id="outlined-basic" label="x" variant="outlined" value={e[0]} inputProps={{
-                                        'data-index': `${index}`,
-                                        'data-axis': 0
-                                    }} onChange={e => handleChangeCoord(e)} type="number" />
-                                    <TextField id="outlined-basic" label="y" variant="outlined" value={e[1]} inputProps={{
-                                        'data-index': `${index}`,
-                                        'data-axis': 1
-                                    }} onChange={e => handleChangeCoord(e)} type="number" />
-
-
-
-                                    {/* <TextField id="outlined-basic" label="x" variant="outlined" value={e[0]} data-index={index} data-axis={0} onChange={e => handleChangeCoord(e)} />
-                                    <TextField id="outlined-basic" label="y" variant="outlined" value={e[1]} data-index={index} data-axis={1} onChange={e => handleChangeCoord(e)} /> */}
-                                    <Button variant="outlined" data-index={index} onClick={(e) => handleDeleteCoord(e)} startIcon={<DeleteIcon />}>
+                                    <ul>{coords.map((e) => <li>X={e[0]}, Y={e[1]}</li>)}</ul>
+                                    <Button variant="outlined" data-index={index} onClick={(e) => handleDeletePipeCoord(e)} startIcon={<DeleteIcon />}>
                                         Delete
                                     </Button>
                                 </li>
                             )
                         })}
-                    </ul>
+                    </ul>}
                     <ButtonGroup className={styles.btn_container} size="large" aria-label="large button group">
-                        <Button variant="contained" onClick={() => handleAddNewPipeCoord()} >ADD NEW</Button>
-                        <Button variant="contained" onClick={() => handleDrawPipes()}>DRAW PIPES</Button>
-                        <Button onClick={() => fetchParcelsData()}>CHECK PARCELS</Button>
+                        <Button variant="contained" onClick={() => handleAddNewPipeCoord(parseInput(acadPoints))} >ADD NEW</Button>
+                        {/* <Button variant="contained" onClick={() => handleDrawPipes()}>DRAW PIPES</Button> */}
+                        {/* <Button >CHECK PARCELS</Button> */}
                     </ButtonGroup>
                 </div >
             </Box>
-        </Modal>
-
+        </Modal >
 
     );
 };
 
 type PipeLineProps = {
-    pipeCoords: LineCoordinates[];
-    handleAddNewPipeCoord: () => void;
-    handleChangeCoord: (e: any) => void;
-    handleDeleteCoord: (e: any) => void;
-    fetchParcelsData: () => Promise<void>;
-    handleDrawPipes: () => Promise<void>;
+
+
     handleTogglePipeEdit: () => void;
-    isPipeEdit: boolean
+    isPipeEdit: boolean;
+    handleAddNewPipeCoord: (coords: LineCoordinates[]) => void;
+    handleDeletePipeCoord: (e: any) => void
+    pipeCoords: LineCoordinates[][];
 };
 

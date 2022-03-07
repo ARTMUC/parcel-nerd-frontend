@@ -11,8 +11,9 @@ import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutli
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import MapIcon from '@mui/icons-material/Map';
 import LayersIcon from '@mui/icons-material/Layers';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 
-export const Hub = ({ toggleCheckBounds, toggleWMSDisplay, isCheckingBounds, handleTogglePipeEdit, isPipeEdit, isWmsShown }: HubProps) => {
+export const Hub = ({ toggleCheckBounds, toggleWMSDisplay, isCheckingBounds, handleTogglePipeEdit, isPipeEdit, isWmsShown, isParcelListShown, handleToggleParcelList }: HubProps) => {
     return (
         <ul className={styles.container}>
             <Fab color={isPipeEdit ? "secondary" : "primary"} variant="extended" onClick={handleTogglePipeEdit}>
@@ -23,9 +24,13 @@ export const Hub = ({ toggleCheckBounds, toggleWMSDisplay, isCheckingBounds, han
                 <AddLocationAltIcon />
                 Add Parcel
             </Fab>
-            <Fab variant="extended">
+            <Fab color={isParcelListShown ? "secondary" : "primary"} variant="extended" onClick={handleToggleParcelList}>
                 <MapIcon sx={{ mr: 1 }} />
                 Parcel List
+            </Fab>
+            <Fab color={isParcelListShown ? "secondary" : "primary"} variant="extended" onClick={handleToggleParcelList}>
+                <PeopleOutlineIcon sx={{ mr: 1 }} />
+                Owners List
             </Fab>
             <Fab color={isWmsShown ? "secondary" : "primary"} variant="extended" onClick={toggleWMSDisplay}>
                 <LayersIcon />
@@ -42,5 +47,7 @@ type HubProps = {
     handleTogglePipeEdit: () => void;
     isPipeEdit: boolean;
     isWmsShown: boolean;
+    isParcelListShown: boolean;
+    handleToggleParcelList: () => void;
 };
 

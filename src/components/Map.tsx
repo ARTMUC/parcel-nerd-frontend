@@ -20,7 +20,7 @@ import { checkParcelData } from '../services/parcelsAPI';
 
 
 
-export const Map = ({ pipeCoordsDeg, isCheckingBounds, addParcelToList, isWmsShown, toggleCheckBounds, parcelsInfoList }: MapProps) => {
+export const Map = ({ pipeCoords, isCheckingBounds, addParcelToList, isWmsShown, toggleCheckBounds, parcelsInfoList }: MapProps) => {
 
     const [map, setMap] = useState<any>()
 
@@ -86,13 +86,13 @@ export const Map = ({ pipeCoordsDeg, isCheckingBounds, addParcelToList, isWmsSho
 
     return (
         <>
-            <MapContainer center={pipeCoordsDeg[0] ? pipeCoordsDeg[0] : [50.23, 18.99]} zoom={15} scrollWheelZoom={true} style={{ height: "100vh" }} maxZoom={23} whenCreated={(map) => setMap(map)}>
+            <MapContainer center={pipeCoords.length > 0 ? pipeCoords[0][0] : [50.23, 18.99]} zoom={15} scrollWheelZoom={true} style={{ height: "100vh" }} maxZoom={23} whenCreated={(map) => setMap(map)}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={20} />
                 {isWmsShown && <WMSTileLayer {...wmsProps} />}
                 {parcelsInfoList.map((parcel, index) => {
                     return <Polygon data-set={parcel.id} key={index} className={styles.parcel} pathOptions={redLines} positions={parcel.boundCoords} />
                 })}
-                <Polyline pathOptions={blueLines} positions={pipeCoordsDeg} />
+                <Polyline pathOptions={blueLines} positions={pipeCoords} />
             </MapContainer>
 
             <div className={styles.button}>
@@ -106,7 +106,7 @@ export const Map = ({ pipeCoordsDeg, isCheckingBounds, addParcelToList, isWmsSho
 };
 
 type MapProps = {
-    pipeCoordsDeg: LineCoordinates[],
+    pipeCoords: LineCoordinates[][],
     isCheckingBounds: boolean,
     addParcelToList: (parcelInfo: ParcelInfo) => void
     isWmsShown: boolean,

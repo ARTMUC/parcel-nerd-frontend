@@ -6,4 +6,12 @@ export interface ParcelInfo {
   county: string;
   commune: string;
   boundCoords: ParcelBounds;
+  KW?: string;
+  class?: string;
+  ownerName?: string;
+  ownerSurname?: string;
+  ownerAdressStreet?: string;
+  ownerAdressHouse?: string;
+  ownerAdressCity?: string;
+  ownerAdressPostalCode?: string;
 }
