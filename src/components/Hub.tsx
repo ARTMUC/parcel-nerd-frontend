@@ -13,7 +13,7 @@ import MapIcon from '@mui/icons-material/Map';
 import LayersIcon from '@mui/icons-material/Layers';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 
-export const Hub = ({ toggleCheckBounds, toggleWMSDisplay, isCheckingBounds, handleTogglePipeEdit, isPipeEdit, isWmsShown, isParcelListShown, handleToggleParcelList }: HubProps) => {
+export const Hub = ({ toggleCheckBounds, toggleWMSDisplay, isCheckingBounds, handleTogglePipeEdit, isPipeEdit, isWmsShown, isParcelListShown, handleToggleParcelList, handleToggleOwnersList, isOwnersListShown }: HubProps) => {
     return (
         <ul className={styles.container}>
             <Fab color={isPipeEdit ? "secondary" : "primary"} variant="extended" onClick={handleTogglePipeEdit}>
@@ -28,7 +28,7 @@ export const Hub = ({ toggleCheckBounds, toggleWMSDisplay, isCheckingBounds, han
                 <MapIcon sx={{ mr: 1 }} />
                 Parcel List
             </Fab>
-            <Fab color={isParcelListShown ? "secondary" : "primary"} variant="extended" onClick={handleToggleParcelList}>
+            <Fab color={isOwnersListShown ? "secondary" : "primary"} variant="extended" onClick={handleToggleOwnersList}>
                 <PeopleOutlineIcon sx={{ mr: 1 }} />
                 Owners List
             </Fab>
@@ -49,5 +49,7 @@ type HubProps = {
     isWmsShown: boolean;
     isParcelListShown: boolean;
     handleToggleParcelList: () => void;
+    handleToggleOwnersList: () => void;
+    isOwnersListShown: boolean
 };
 
