@@ -16,8 +16,6 @@ export const PipeLine = ({ handleTogglePipeEdit, isPipeEdit, handleAddNewPipeCoo
 
     const [acadPoints, setAcadPoints] = useState('')
 
-
-
     const parseInput = (string: string) => {
         const r = /[X]=[0-9]*\.[0-9]+\s*[Y]=[0-9]*\.[0-9]+/g;
         const r2 = /[0-9]*\.[0-9]+/g;
@@ -62,10 +60,10 @@ export const PipeLine = ({ handleTogglePipeEdit, isPipeEdit, handleAddNewPipeCoo
                         style={{ minWidth: 500, maxWidth: 500 }}
                     />
                     {<ul className={styles.pipe_list}>
-                        {pipeCoords.length > 0 && pipeCoords.map((coords, index) => {
+                        {pipeCoords.length > 0 && pipeCoords.map((coords: any, index: any) => {
                             return (
                                 <li className={styles.list_element}>
-                                    <ul>{coords.map((e) => <li>X={e[0]}, Y={e[1]}</li>)}</ul>
+                                    <ul>{coords.map((e: any) => <li>X={e[0]}, Y={e[1]}</li>)}</ul>
                                     <Button variant="outlined" data-index={index} onClick={(e) => handleDeletePipeCoord(e)} startIcon={<DeleteIcon />}>
                                         Delete
                                     </Button>
@@ -92,6 +90,6 @@ type PipeLineProps = {
     isPipeEdit: boolean;
     handleAddNewPipeCoord: (coords: LineCoordinates[]) => void;
     handleDeletePipeCoord: (e: any) => void
-    pipeCoords: LineCoordinates[][];
+    pipeCoords: any;
 };
 

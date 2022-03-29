@@ -15,7 +15,8 @@ import { GridEditCellPropsParams } from '@mui/x-data-grid';
 import { OwnerList } from '../components/OwnerList';
 
 export const Dashboard = () => {
-    const [pipeCoords, setPipeCoords] = useState<LineCoordinates[][]>([])
+    const [pipeCoords, setPipeCoords] = useState<any>([[50.04594654784428, 18.52763330957716],
+    [50.01594654784428, 18.12763330957716]])
     // const [parcelsInfoList, setParcelsInfoList] = useState<ParcelInfo[]>([]);
 
 
@@ -102,17 +103,17 @@ export const Dashboard = () => {
     const [isOwnersListShown, setIsOwnersListShown] = useState(false);
 
     const handleAddNewPipeCoord = async (coords: LineCoordinates[]) => {
-        setIsLoading(true)
-        const pipeConvertedCoords = await convertToDeg(coords)
-        setPipeCoords(prev => [...prev, pipeConvertedCoords])
-        setIsLoading(false)
+        // setIsLoading(true)
+        // const pipeConvertedCoords = await convertToDeg(coords)
+        // setPipeCoords(prev => [...prev, pipeConvertedCoords])
+        // setIsLoading(false)
     };
 
     const handleDeletePipeCoord = (e: { target: { dataset: { index: string; }; }; }) => {
-        const elementIndex = e.target.dataset.index;
-        setPipeCoords((prev) => {
-            return prev.filter((el, index) => +elementIndex !== index)
-        })
+        // const elementIndex = e.target.dataset.index;
+        // setPipeCoords((prev) => {
+        //     return prev.filter((el, index) => +elementIndex !== index)
+        // })
     }
 
     const addParcelToList = (parcelInfo: ParcelInfo) => {
@@ -151,5 +152,3 @@ export const Dashboard = () => {
         </div >
     );
 };
-
-
