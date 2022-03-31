@@ -1,0 +1,25 @@
+.button {
+  color: white;
+  background-color: rgb(31 41 55);
+  width: 200px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin: 20px;
+  background-position: center;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background-color: rgb(50, 59, 73);
+  cursor: pointer;
+  background: rgb(50, 59, 73)
+    radial-gradient(circle, transparent 1%, #69727a 1%) center/15000%;
+}
+.button:active {
+  background-color: rgb(50, 59, 73);
+  background-size: 100%;
+  transition: background 0s;
+}

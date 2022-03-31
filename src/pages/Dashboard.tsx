@@ -14,13 +14,14 @@ import { ParcelList } from '../components/ParcelList';
 import { GridEditCellPropsParams } from '@mui/x-data-grid';
 import { OwnerList } from '../components/OwnerList';
 
+
 export const Dashboard = () => {
+
+
     const [pipeCoords, setPipeCoords] = useState<any>([[50.04594654784428, 18.52763330957716],
     [50.01594654784428, 18.12763330957716]])
-    // const [parcelsInfoList, setParcelsInfoList] = useState<ParcelInfo[]>([]);
 
 
-    // temporary mockup data - probably will be split on backend to parcelInfoArr and ownersInfoArr
     const [parcelsInfoList, setParcelsInfoList] = useState<any[]>([{
         id: 'string',
         voivodeship: 'string',

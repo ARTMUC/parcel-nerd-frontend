@@ -1,0 +1,8 @@
+.alert {
+  color: #bf1650;
+}
+
+.alert::before {
+  display: inline;
+  content: "⚠ ";
+}
