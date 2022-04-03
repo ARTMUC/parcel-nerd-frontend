@@ -1,0 +1,23 @@
+.toast__message {
+  background-color: rgb(221, 221, 221);
+  /* color: #fff; */
+  font-weight: bold;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  z-index: 1;
+  animation: fadein 0.5s;
+  overflow-wrap: break-word;
+  width: 300px;
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}

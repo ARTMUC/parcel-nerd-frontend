@@ -1,0 +1,5 @@
+.toast__list {
+  position: fixed;
+  bottom: 0;
+  right: 25px;
+}

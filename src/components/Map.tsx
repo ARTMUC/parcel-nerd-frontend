@@ -7,7 +7,7 @@ import { ParcelBounds } from '../interfaces/parcel-boundaries.type';
 
 import "leaflet/dist/leaflet.css";
 import styles from './Map.module.css';
-import { LoadingCircle } from './LoadingCircle';
+import { LoadingCircle } from './LoadingCircle_old';
 import { LineCoordinates } from '../interfaces/line-coordinates.type';
 import { ParcelInfo } from '../interfaces/parcel-info.interface';
 import L, { LatLngBoundsLiteral } from 'leaflet';

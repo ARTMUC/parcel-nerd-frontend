@@ -1,5 +1,6 @@
 import { LoginData } from "../interfaces/login-data.interface.";
 import { RegisterData } from "../interfaces/register-data.interface";
+import { ServerError } from "../interfaces/server-error.interface";
 import { User } from "../interfaces/user.interface";
 
 const API_URL = "http://localhost:3000/auth/";
@@ -19,13 +20,16 @@ export const loginUser = async (loginData: LoginData) => {
     user && localStorage.setItem("parcelNerd-user", JSON.stringify(user));
 
     return user;
-  } catch (error) {
-    // throw new Error(error.message);
-    console.log(error);
+  } catch (error: unknown) {
+    if (error instanceof TypeError) {
+      return error.message;
+    }
   }
 };
 
-export const registerUser = async (registerData: RegisterData) => {
+export const registerUser = async (
+  registerData: RegisterData
+): Promise<string | User> => {
   try {
     const { email, name, password, repeatPassword } = registerData;
 
@@ -39,21 +43,23 @@ export const registerUser = async (registerData: RegisterData) => {
       },
       body: JSON.stringify({ email, name, password }),
     });
-    const { message } = await response.json();
+    const body = await response.json();
+
     switch (response.status) {
       case 201:
-        return message;
+        return body;
       case 400:
-        throw new Error(message);
+        throw new Error(body.message);
       case 500:
-        throw new Error("server error - please try again later");
+        throw new Error("Server error - please try again later");
       default:
-        console.log("unhandled", response.status);
-        break;
+        throw new Error("Something went wrong - please try again later");
     }
-  } catch (error) {
-    // throw new Error(error.message);
-    console.log(error);
+  } catch (error: unknown) {
+    if (error instanceof TypeError) {
+      return error.message;
+    }
+    return "Something went wrong, Please try again later";
   }
 };
 
@@ -65,8 +71,9 @@ export const logoutUser = async () => {
       credentials: "include",
     });
     return;
-  } catch (error) {
-    // throw new Error(error.message);
-    console.log(error);
+  } catch (error: unknown) {
+    if (error instanceof TypeError) {
+      return error.message;
+    }
   }
 };

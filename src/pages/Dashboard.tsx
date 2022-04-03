@@ -5,7 +5,7 @@ import { ParcelInfo } from '../interfaces/parcel-info.interface';
 import { ParcelBounds } from '../interfaces/parcel-boundaries.type';
 
 import styles from './Dashboard.module.css';
-import { LoadingCircle } from '../components/LoadingCircle';
+import { LoadingCircle } from '../components/LoadingCircle_old';
 import { LineCoordinates } from '../interfaces/line-coordinates.type';
 import { PipeLine } from '../components/PipeLine';
 import { Hub } from '../components/Hub';
