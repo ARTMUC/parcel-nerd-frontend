@@ -5,7 +5,7 @@ import { User } from "./interfaces/user.interface";
 export const ProtectedRoute = ({ user,
     children }: ProtectedRouteProps) => {
     if (!user) {
-        return <Navigate to='/signup' replace />;
+        return <Navigate to='/signin' replace />;
     }
 
 

@@ -16,15 +16,22 @@ export const loginUser = async (loginData: LoginData) => {
       },
       body: JSON.stringify(loginData),
     });
-    const user: User = await response.json();
+    const body = await response.json();
 
-    user && localStorage.setItem("parcelNerd-user", JSON.stringify(user));
+    body && localStorage.setItem("parcelNerd-user", JSON.stringify(body));
 
-    return user;
-  } catch (error: unknown) {
-    if (error instanceof TypeError) {
-      return error.message;
+    switch (response.status) {
+      case 200:
+        return body;
+      case 400:
+      case 403:
+      case 404:
+      case 500:
+        return body.message;
+      default:
+        return defaultErrMessage;
     }
+  } catch (error: unknown) {
     return defaultErrMessage;
   }
 };

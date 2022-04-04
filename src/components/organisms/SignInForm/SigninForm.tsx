@@ -2,29 +2,32 @@ import React, { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { FaGlobeEurope } from 'react-icons/fa';
 import useToastMessageContext from '../../../hooks/useToastMessageContext';
+import { LoginData } from '../../../interfaces/login-data.interface.';
 import { RegisterData } from '../../../interfaces/register-data.interface';
 import { User } from '../../../interfaces/user.interface';
-import { registerUser } from '../../../services/authService';
+import { loginUser, registerUser } from '../../../services/authService';
 import { FormButton } from '../../atoms/FormButton/FormButton';
 import { LoadingCircle } from '../../atoms/LoadingCircle/LoadingCircle';
 import { InputWithError } from '../../molecules/InputWithError/InputWithError';
 
-import styles from './SignupForm.module.css';
+import styles from './SigninForm.module.css';
 
 
-export const SignupForm = () => {
+export const SigninForm = ({ handleLogin }: SigninFormProps) => {
 
     const { addToastMessage } = useToastMessageContext();
     const [isLoading, setIsLoading] = useState(false)
-    const { register, handleSubmit, formState: { errors } } = useForm<RegisterData>();
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginData>();
 
 
-    const onSubmit: SubmitHandler<RegisterData> = async (data) => {
+    const onSubmit: SubmitHandler<LoginData> = async (data) => {
         setIsLoading(true)
-        const response = await registerUser(data)
+        const response = await loginUser(data)
 
         if ((response as User).email) {
-            addToastMessage(`You've signed up successfully. We've sent you an email with activation link.`);
+            addToastMessage(`You've signed in successfully.`);
+            handleLogin(response)
+            window.location.href = "http://localhost:3001"
         } if (typeof response === 'string') {
             addToastMessage(response)
         }
@@ -45,15 +48,16 @@ export const SignupForm = () => {
                 })
             }} error={errors.email} />
 
-            <InputWithError type="text" placeholder="Name" register={{ ...register("name", { required: 'This field is required' }) }} error={errors.name} />
-
             <InputWithError type="password" placeholder="Password" register={{ ...register("password", { required: 'This field is required', min: 3 }) }} error={errors.password} />
-
-            <InputWithError type="password" placeholder="Repeat Password" register={{ ...register("repeatPassword", { required: 'This field is required', min: 3 }) }} error={errors.repeatPassword} />
-
-            {isLoading ? <LoadingCircle /> : <FormButton type="submit" value='register' />}
+            <div></div>
+            <div></div>
+            {isLoading ? <LoadingCircle /> : <FormButton type="submit" value='login' />}
 
         </form>
     );
+}
+
+type SigninFormProps = {
+    handleLogin: (data: User) => void
 }
 
