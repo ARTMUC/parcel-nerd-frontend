@@ -4,18 +4,16 @@ import styles from './ToastMessage.module.css';
 
 export const ToastMessage = ({ message, removeToastMessage }: any) => {
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            removeToastMessage(message.id)
-        }, 5000)
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         removeToastMessage(message.id)
+    //     }, 5000)
 
-        return () => {
-            clearTimeout(timer);
-        }
+    //     return () => {
+    //         clearTimeout(timer);
+    //     }
 
-    }, [])
-
-
+    // }, [])
 
     return (
 

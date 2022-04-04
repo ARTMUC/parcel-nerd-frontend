@@ -7,6 +7,7 @@ import { SignUp } from './pages/SignUp';
 import { ProtectedRoute } from './ProtectedRoute';
 import { User } from './interfaces/user.interface';
 import { RegisterData } from './interfaces/register-data.interface';
+import { ToastMessageContextProvider } from './context/ToastMessageContext';
 
 export const App = () => {
 
@@ -16,20 +17,24 @@ export const App = () => {
 
 
 
+
+
   return (
-    <Routes>
-      <Route
-        path='/'
-        element={
-          <ProtectedRoute user={user}>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
-      {/* <Route path="signin" element={<Analytics />} handleLogin={handleLogin} handleLogout={handleLogout} /> */}
-      <Route path="signup" element={<SignUp />} />
-      <Route path="*" element={<p>There's nothing here: 404!</p>} />
-    </Routes>
+    <ToastMessageContextProvider>
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <ProtectedRoute user={user}>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        {/* <Route path="signin" element={<Analytics />} handleLogin={handleLogin} handleLogout={handleLogout} /> */}
+        <Route path="signup" element={<SignUp />} />
+        <Route path="*" element={<p>There's nothing here: 404!</p>} />
+      </Routes>
+    </ToastMessageContextProvider>
   );
 }
 

@@ -4,7 +4,7 @@ import { FormInput } from '../../atoms/Input/FormInput';
 import styles from './InputWithError.module.css';
 
 
-export const InputWithError = (props: any) => {
+export const InputWithError = (props: { [x: string]: any; error: any; }) => {
     const { error, ...rest } = props
     return (
         <section className={styles.container}>

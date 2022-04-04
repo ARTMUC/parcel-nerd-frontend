@@ -4,6 +4,7 @@ import { ServerError } from "../interfaces/server-error.interface";
 import { User } from "../interfaces/user.interface";
 
 const API_URL = "http://localhost:3000/auth/";
+const defaultErrMessage = "Something went wrong, Please try again later";
 
 export const loginUser = async (loginData: LoginData) => {
   try {
@@ -24,6 +25,7 @@ export const loginUser = async (loginData: LoginData) => {
     if (error instanceof TypeError) {
       return error.message;
     }
+    return defaultErrMessage;
   }
 };
 
@@ -49,17 +51,15 @@ export const registerUser = async (
       case 201:
         return body;
       case 400:
-        throw new Error(body.message);
+      case 403:
+      case 404:
       case 500:
-        throw new Error("Server error - please try again later");
+        return body.message;
       default:
-        throw new Error("Something went wrong - please try again later");
+        return defaultErrMessage;
     }
   } catch (error: unknown) {
-    if (error instanceof TypeError) {
-      return error.message;
-    }
-    return "Something went wrong, Please try again later";
+    return defaultErrMessage;
   }
 };
 
@@ -75,5 +75,6 @@ export const logoutUser = async () => {
     if (error instanceof TypeError) {
       return error.message;
     }
+    return defaultErrMessage;
   }
 };
