@@ -36,23 +36,6 @@ export const SignupForm = () => {
     }
 
 
-
-    // const addToastMessage = (message: string) => {
-    //     setMessages([{
-    //         id: new Date().getTime(),
-    //         value: message
-    //     }]);
-    // }
-
-    // const removeToastMessage = (id: number) => {
-    //     setMessages((prevState) => {
-    //         return prevState.filter((message) => message.id !== id)
-    //     })
-    // }
-
-
-
-
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 

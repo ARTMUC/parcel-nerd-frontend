@@ -15,10 +15,6 @@ export const App = () => {
   const handleLogin = (data: User) => setUser(data);
   const handleLogout = () => setUser(null);
 
-
-
-
-
   return (
     <ToastMessageContextProvider>
       <Routes>

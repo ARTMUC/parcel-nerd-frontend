@@ -14,7 +14,6 @@ export const SignUp = () => {
     return (
         <div className={styles.container} >
             <SignupForm />
-            {/* <ToastMessageList messages={messages} removeToastMessage={removeToastMessage} /> */}
         </div>
     );
 }
