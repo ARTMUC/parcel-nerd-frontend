@@ -12,7 +12,6 @@ import { InputWithError } from '../../molecules/InputWithError/InputWithError';
 
 import styles from './SigninForm.module.css';
 
-
 export const SigninForm = ({ handleLogin }: SigninFormProps) => {
 
     const { addToastMessage } = useToastMessageContext();
@@ -24,13 +23,11 @@ export const SigninForm = ({ handleLogin }: SigninFormProps) => {
         setIsLoading(true)
         const response = await loginUser(data)
 
-        if ((response as User).email) {
-            addToastMessage(`You've signed in successfully.`);
-            handleLogin(response)
-            window.location.href = "http://localhost:3001"
-        } if (typeof response === 'string') {
-            addToastMessage(response)
-        }
+        if (!response) return
+        addToastMessage(`You've signed in successfully.`);
+        handleLogin(response)
+        window.location.href = "http://localhost:3001"
+
         setIsLoading(false)
     }
 

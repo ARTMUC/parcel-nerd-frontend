@@ -13,7 +13,11 @@ import { SignIn } from './pages/SignIn/SignIn';
 
 export const App = () => {
 
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>({
+    id: '21341234123',
+    email: 'asdsad',
+    name: 'asdfasdf'
+  });
   const handleLogin = (data: User) => setUser(data);
   const handleLogout = () => setUser(null);
 

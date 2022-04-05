@@ -1,4 +1,4 @@
 export interface ServerError {
-  statusCode: number;
+  statusCode?: number;
   message: string;
 }

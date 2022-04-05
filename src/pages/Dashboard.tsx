@@ -18,8 +18,7 @@ import { OwnerList } from '../components/OwnerList';
 export const Dashboard = () => {
 
 
-    const [pipeCoords, setPipeCoords] = useState<any>([[50.04594654784428, 18.52763330957716],
-    [50.01594654784428, 18.12763330957716]])
+    const [pipeCoords, setPipeCoords] = useState<any>([[50.6108936116734, 18.97505879356], [50.6008936116734, 18.98505879356],])
 
 
     const [parcelsInfoList, setParcelsInfoList] = useState<any[]>([{
@@ -27,7 +26,7 @@ export const Dashboard = () => {
         voivodeship: 'string',
         county: 'string',
         commune: 'string123',
-        boundCoords: [[50, 18], [50.21, 18.21],],
+        boundCoords: [[50.6008936116734, 18.98505879356], [50.6026872639661, 18.9828860939266], [50.6027542279003, 18.983018559349], [50.6028160358464, 18.9830970458734], [50.602864007728, 18.9832825406091], [50.6005552836585, 18.9859811575193], [50.5998134034592, 18.9868830614328], [50.5996610841659, 18.9863860168516], [50.6008936116734, 18.98505879356]],
         KW: 'string123',
         owner: [{
             id: 1,
@@ -48,32 +47,7 @@ export const Dashboard = () => {
             ownerAdressCity: 'string1243',
             ownerAdressPostalCode: 'string1234'
         }]
-    }, {
-        id: 'stringxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-        voivodeship: 'string',
-        county: 'string',
-        commune: 'string123',
-        boundCoords: [[50, 18], [50.21, 18.21],],
-        KW: 'string123',
-        owner: [{
-            id: 3,
-            class: 'string123',
-            ownerName: 'string123',
-            ownerSurname: 'string123',
-            ownerAdressStreet: 'string123',
-            ownerAdressHouse: 'string123',
-            ownerAdressCity: 'string123',
-            ownerAdressPostalCode: 'string123',
-        }, {
-            id: 4,
-            class: 'string1234',
-            ownerName: 'string1234',
-            ownerSurname: 'string1234',
-            ownerAdressStreet: 'string1234',
-            ownerAdressHouse: 'string1234',
-            ownerAdressCity: 'string1243',
-            ownerAdressPostalCode: 'string1234'
-        }]
+
     }])
 
     const [ownersInfoList, setOwnerInfoList] = useState<any[]>([])

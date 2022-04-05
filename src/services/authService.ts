@@ -6,7 +6,7 @@ import { User } from "../interfaces/user.interface";
 const API_URL = "http://localhost:3000/auth/";
 const defaultErrMessage = "Something went wrong, Please try again later";
 
-export const loginUser = async (loginData: LoginData) => {
+export const loginUser = async (loginData: LoginData): Promise<User | void> => {
   try {
     const response = await fetch(`${API_URL}signin`, {
       method: "POST",
@@ -27,18 +27,21 @@ export const loginUser = async (loginData: LoginData) => {
       case 403:
       case 404:
       case 500:
-        return body.message;
+        addToastMessage(body.message);
+        break;
       default:
-        return defaultErrMessage;
+        addToastMessage(defaultErrMessage);
+        break;
     }
   } catch (error: unknown) {
-    return defaultErrMessage;
+    console.log(error);
+    addToastMessage(defaultErrMessage);
   }
 };
 
 export const registerUser = async (
   registerData: RegisterData
-): Promise<string | User> => {
+): Promise<void | User> => {
   try {
     const { email, name, password, repeatPassword } = registerData;
 
@@ -61,12 +64,15 @@ export const registerUser = async (
       case 403:
       case 404:
       case 500:
-        return body.message;
+        addToastMessage(body.message);
+        break;
       default:
-        return defaultErrMessage;
+        addToastMessage(defaultErrMessage);
+        break;
     }
   } catch (error: unknown) {
-    return defaultErrMessage;
+    console.log(error);
+    addToastMessage(defaultErrMessage);
   }
 };
 
@@ -85,3 +91,6 @@ export const logoutUser = async () => {
     return defaultErrMessage;
   }
 };
+function addToastMessage(message: any) {
+  throw new Error("Function not implemented.");
+}

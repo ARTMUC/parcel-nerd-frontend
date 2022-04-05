@@ -23,11 +23,9 @@ export const SignupForm = () => {
         setIsLoading(true)
         const response = await registerUser(data)
 
-        if ((response as User).email) {
-            addToastMessage(`You've signed up successfully. We've sent you an email with activation link.`);
-        } if (typeof response === 'string') {
-            addToastMessage(response)
-        }
+        if (!response) return
+
+        addToastMessage(`You've signed up successfully. We've sent you an email with activation link.`);
         setIsLoading(false)
     }
 
