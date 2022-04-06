@@ -9,7 +9,8 @@
 - I will use React Context API to store information.
 
 ## WHAT YOU CAN DO WITH IT?
-- It's a CRUD app on the maps. You'll be able to add Parcels (lots) based on coordinates from the map (onClick).
+- It's a CRUD app on the maps. 
+- You'll be able to add Parcels (lots) based on coordinates from the map (onClick).
 - You'll be able to add Owners to given Parcels. 
 - Make Notes on the map and reassign them to given Parcel or Owner.
 - Add Polilynes based on XY coordinates in any coordinates system existing in Poland.
