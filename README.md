@@ -1,3 +1,24 @@
+# :construction: THIS APP IS UNDER CONSTRUCTION :construction:
+
+## I'VE STARTED THIS APP AS A DRAFT TO MAKE SURE I CAN BUILD IT
+(so... it is a mess :poop:)
+:fire: BUT Right now I am refactoring it:
+- I'll try to follow atomic design principles,
+- I will switch from MUI to plain CSS to practice it (as I'm still not a CSS master yet)
+- I will use React Context API to store information.
+
+## WHAT YOU CAN DO WITH IT?
+It's a CRUD app on the maps. You'll be able to add Parcels (lots) based on coordinates from the map (onClick).
+You'll be able to add Owners to given Parcels. 
+Make Notes on the map and reassign them to given Parcel or Owner.
+Add Polilynes based on XY coordinates in any coordinates system existing in Poland.
+
+## SOME SCREENSHOTS:
+
+![screenshot](https://raw.githubusercontent.com/ARTMUC/parcel-nerd-frontend/master/screenshots/Capture.PNG "screenshot")
+![screenshot](https://raw.githubusercontent.com/ARTMUC/parcel-nerd-frontend/master/screenshots/Capture2.PNG "screenshot")
+![screenshot](https://raw.githubusercontent.com/ARTMUC/parcel-nerd-frontend/master/screenshots/Capture3.PNG "screenshot")
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -28,19 +49,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
