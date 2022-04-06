@@ -2,16 +2,17 @@
 
 ## I'VE STARTED THIS APP AS A DRAFT TO MAKE SURE I CAN BUILD IT
 (so... it is a mess :poop:)
+
 :fire: BUT Right now I am refactoring it:
 - I'll try to follow atomic design principles,
 - I will switch from MUI to plain CSS to practice it (as I'm still not a CSS master yet)
 - I will use React Context API to store information.
 
 ## WHAT YOU CAN DO WITH IT?
-It's a CRUD app on the maps. You'll be able to add Parcels (lots) based on coordinates from the map (onClick).
-You'll be able to add Owners to given Parcels. 
-Make Notes on the map and reassign them to given Parcel or Owner.
-Add Polilynes based on XY coordinates in any coordinates system existing in Poland.
+- It's a CRUD app on the maps. You'll be able to add Parcels (lots) based on coordinates from the map (onClick).
+- You'll be able to add Owners to given Parcels. 
+- Make Notes on the map and reassign them to given Parcel or Owner.
+- Add Polilynes based on XY coordinates in any coordinates system existing in Poland.
 
 ## SOME SCREENSHOTS:
 
