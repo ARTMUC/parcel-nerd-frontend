@@ -5,8 +5,6 @@ import './App.css';
 import { Dashboard } from './pages/Dashboard';
 
 import { ProtectedRoute } from './ProtectedRoute';
-import { User } from './interfaces/user.interface';
-import { RegisterData } from './interfaces/register-data.interface';
 import { ToastMessageContextProvider } from './context/ToastMessageContext';
 import { SignUp } from './pages/SignUp/SignUp';
 import { SignIn } from './pages/SignIn/SignIn';
