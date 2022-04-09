@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { Map } from '../components/Map';
 import { ParcelInfo } from '../interfaces/parcel-info.interface';
-import { ParcelBounds } from '../interfaces/parcel-boundaries.type';
-
 import styles from './Dashboard.module.css';
 import { LoadingCircle } from '../components/LoadingCircle_old';
 import { LineCoordinates } from '../interfaces/line-coordinates.type';
 import { PipeLine } from '../components/PipeLine';
 import { Hub } from '../components/Hub';
-import { convertToDeg } from '../services/parcelsAPI';
 import { ParcelList } from '../components/ParcelList';
 import { GridEditCellPropsParams } from '@mui/x-data-grid';
 import { OwnerList } from '../components/OwnerList';
 
-
 export const Dashboard = () => {
 
-
     const [pipeCoords, setPipeCoords] = useState<any>([[50.6108936116734, 18.97505879356], [50.6008936116734, 18.98505879356],])
-
 
     const [parcelsInfoList, setParcelsInfoList] = useState<any[]>([{
         id: 'string',
@@ -52,7 +45,6 @@ export const Dashboard = () => {
 
     const [ownersInfoList, setOwnerInfoList] = useState<any[]>([])
 
-
     //// this is only temporary - data will be split on the backend probably
     useEffect(() => {
         const xxx = parcelsInfoList.filter((e) => e.owner)
@@ -67,8 +59,6 @@ export const Dashboard = () => {
         setOwnerInfoList(zzz)
     }, [parcelsInfoList])
     ////
-
-
 
     const [isLoading, setIsLoading] = useState(false);
     const [isCheckingBounds, setIsCheckingBounds] = useState(false)
@@ -109,9 +99,6 @@ export const Dashboard = () => {
     const toggleCheckBounds = () => setIsCheckingBounds(prev => !prev);
 
     const toggleWMSDisplay = () => setIsWmsShown(prev => !prev);
-
-
-
 
     return (
         <div className={styles.container} >

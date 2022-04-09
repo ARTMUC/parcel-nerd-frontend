@@ -1,20 +1,17 @@
 import React, { useCallback, useState, createContext } from "react";
 import { ToastMessageList } from "../components/organisms/ToastMessagesList/ToastMessageList";
 
-
 export interface ToastMessageInterface {
     id: number;
     value: string;
 }
 
-export type ToastMessageContextType = {
+export interface ToastMessageContextType {
     messages: ToastMessageInterface[];
     addToastMessage: (message: string) => void;
 };
 
-const ToastMessageContext = createContext<ToastMessageContextType | null>(null);
-
-
+export const ToastMessageContext = createContext<ToastMessageContextType | null>(null);
 
 export const ToastMessageContextProvider: React.FC = ({ children }) => {
     const [messages, setMessages] = useState<ToastMessageInterface[]>([]);
@@ -38,4 +35,3 @@ export const ToastMessageContextProvider: React.FC = ({ children }) => {
         </ToastMessageContext.Provider>
     );
 }
-export default ToastMessageContext;

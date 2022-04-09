@@ -1,7 +1,10 @@
 import { useContext } from "react";
-import ToastMessageContext, { ToastMessageContextType } from "../context/ToastMessageContext";
+import { ToastMessageContext } from "../context/ToastMessageContext";
 
+export const useToastMessageContext = () => {
+    const toastContext = useContext(ToastMessageContext)
 
-export default function useToastMessageContext() {
-    return useContext(ToastMessageContext) as ToastMessageContextType;
+    if (!toastContext) { throw new Error('Missing ToastMessageContext data') }
+
+    return toastContext
 }

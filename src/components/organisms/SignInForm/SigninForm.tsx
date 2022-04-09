@@ -1,31 +1,33 @@
-import React, { useState } from 'react';
-import { FieldValues, SubmitHandler, useForm, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { FaGlobeEurope } from 'react-icons/fa';
-import useToastMessageContext from '../../../hooks/useToastMessageContext';
+import { useAuthContext } from '../../../hooks/useAuthContext';
+import { useToastMessageContext } from '../../../hooks/useToastMessageContext';
 import { LoginData } from '../../../interfaces/login-data.interface.';
-import { RegisterData } from '../../../interfaces/register-data.interface';
-import { User } from '../../../interfaces/user.interface';
-import { loginUser, registerUser } from '../../../services/authService';
+import { loginUser } from '../../../services/authService';
 import { FormButton } from '../../atoms/FormButton/FormButton';
 import { LoadingCircle } from '../../atoms/LoadingCircle/LoadingCircle';
 import { InputWithError } from '../../molecules/InputWithError/InputWithError';
 
 import styles from './SigninForm.module.css';
 
-export const SigninForm = ({ handleLogin }: SigninFormProps) => {
+export const SigninForm = () => {
 
     const { addToastMessage } = useToastMessageContext();
     const [isLoading, setIsLoading] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm<LoginData>();
-
+    const { addUserContext } = useAuthContext()
 
     const onSubmit: SubmitHandler<LoginData> = async (data) => {
         setIsLoading(true)
+
         const response = await loginUser(data)
 
-        if (!response) return
+        if (!response) { return }
+
         addToastMessage(`You've signed in successfully.`);
-        handleLogin(response)
+        addUserContext(response)
+
         window.location.href = "http://localhost:3001"
 
         setIsLoading(false)
@@ -54,7 +56,5 @@ export const SigninForm = ({ handleLogin }: SigninFormProps) => {
     );
 }
 
-type SigninFormProps = {
-    handleLogin: (data: User) => void
-}
+
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { FaGlobeEurope } from 'react-icons/fa';
-import useToastMessageContext from '../../../hooks/useToastMessageContext';
+import { useToastMessageContext } from '../../../hooks/useToastMessageContext';
 import { RegisterData } from '../../../interfaces/register-data.interface';
 import { User } from '../../../interfaces/user.interface';
 import { registerUser } from '../../../services/authService';
