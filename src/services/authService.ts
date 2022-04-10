@@ -2,6 +2,7 @@ import { LoginData } from "../interfaces/login-data.interface.";
 import { RegisterData } from "../interfaces/register-data.interface";
 import { ServerError } from "../interfaces/server-error.interface";
 import { User } from "../interfaces/user.interface";
+import { FetchError } from "./error";
 
 const API_URL = "http://localhost:3000/auth/";
 const defaultErrMessage = "Something went wrong, Please try again later";
@@ -27,15 +28,15 @@ export const loginUser = async (loginData: LoginData): Promise<User | void> => {
       case 403:
       case 404:
       case 500:
-        addToastMessage(body.message);
-        break;
+        throw new Error(body.message);
       default:
-        addToastMessage(defaultErrMessage);
-        break;
+        throw new Error(defaultErrMessage);
     }
   } catch (error: unknown) {
-    console.log(error);
-    addToastMessage(defaultErrMessage);
+    if (error instanceof FetchError) {
+      throw error;
+    }
+    throw new Error(defaultErrMessage);
   }
 };
 
@@ -64,15 +65,15 @@ export const registerUser = async (
       case 403:
       case 404:
       case 500:
-        addToastMessage(body.message);
-        break;
+        throw new FetchError(body.message);
       default:
-        addToastMessage(defaultErrMessage);
-        break;
+        throw new FetchError(defaultErrMessage);
     }
   } catch (error: unknown) {
-    console.log(error);
-    addToastMessage(defaultErrMessage);
+    if (error instanceof FetchError) {
+      throw error;
+    }
+    throw new Error(defaultErrMessage);
   }
 };
 
@@ -85,12 +86,8 @@ export const logoutUser = async () => {
     });
     return;
   } catch (error: unknown) {
-    if (error instanceof TypeError) {
-      return error.message;
+    if (error instanceof Error) {
+      throw new Error(defaultErrMessage);
     }
-    return defaultErrMessage;
   }
 };
-function addToastMessage(message: any) {
-  throw new Error("Function not implemented.");
-}

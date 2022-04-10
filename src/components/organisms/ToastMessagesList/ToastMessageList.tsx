@@ -7,7 +7,7 @@ export const ToastMessageList = ({ messages }: ToastMessageListProps) => {
 
     return (
         <ul className={styles.toast__list}>
-            {messages.map((message: any) => <ToastMessage key={message.id} message={message} />)}
+            {messages.map((message) => <ToastMessage key={message.id} message={message} />)}
         </ul>
     );
 }

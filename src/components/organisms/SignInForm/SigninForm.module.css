@@ -4,7 +4,7 @@
   place-items: center;
   grid-template-rows: 200px 70px 70px 70px 70px 1fr;
   gap: 0px;
-  height: 600px;
+  /* height: 600px; */
   width: 500px;
   border-radius: 10px;
 }
@@ -17,4 +17,3 @@
     width: 90%;
   }
 }
-

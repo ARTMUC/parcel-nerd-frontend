@@ -23,15 +23,19 @@ export const SignupForm = () => {
     const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<RegisterData> = async (data) => {
-        setIsLoading(true)
-        const response = await registerUser(data)
-
-        if (!response) { return }
-
-        addToastMessage(`You've signed up successfully. We've sent you an email with activation link.`);
-        setIsLoading(false)
-
-        navigate("../signin", { replace: true });
+        try {
+            setIsLoading(true)
+            const response = await registerUser(data)
+            if (!response) { return }
+            addToastMessage(`You've signed up successfully. We've sent you an email with activation link.`);
+            setIsLoading(false)
+            navigate("../signin", { replace: true });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                addToastMessage(error.message)
+                setIsLoading(false)
+            }
+        }
     }
 
 

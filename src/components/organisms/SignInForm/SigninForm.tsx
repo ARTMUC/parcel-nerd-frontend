@@ -24,19 +24,20 @@ export const SigninForm = () => {
 
 
     const onSubmit: SubmitHandler<LoginData> = async (data) => {
-        setIsLoading(true)
-
-        const response = await loginUser(data)
-
-        if (!response) { return }
-
-        addToastMessage(`You've signed in successfully.`);
-        addUserContext(response)
-
-        setIsLoading(false)
-
-        navigate("../", { replace: true });
-
+        try {
+            setIsLoading(true)
+            const response = await loginUser(data)
+            if (!response) { return }
+            addToastMessage(`You've signed in successfully.`);
+            addUserContext(response)
+            setIsLoading(false)
+            navigate("../select-project", { replace: true });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                addToastMessage(error.message)
+                setIsLoading(false)
+            }
+        }
     }
 
 
@@ -54,8 +55,7 @@ export const SigninForm = () => {
             }} error={errors.email} />
 
             <InputWithError type="password" placeholder="Password" register={{ ...register("password", { required: 'This field is required', min: 3 }) }} error={errors.password} />
-            <div></div>
-            <div></div>
+
 
             <FormButtonWithLink type='submit' value='login' to='/signup' text='If you do not have an account please' linkText='sign up here' isLoading={isLoading} />
 
