@@ -10,20 +10,30 @@ import { SignUp } from './pages/SignUp/SignUp';
 import { SignIn } from './pages/SignIn/SignIn';
 import { useAuthContext } from './hooks/useAuthContext';
 import { AuthContextProvider } from './context/AuthContext';
+import { ProjectSelect } from './pages/ProjectSelect/ProjectSelect';
 
 export const App = () => {
 
-  const authCtx = useAuthContext()
+
 
   return (
-    <ToastMessageContextProvider>
-      <AuthContextProvider>
+    <AuthContextProvider>
+      <ToastMessageContextProvider>
+
         <Routes>
           <Route
             path='/'
             element={
-              <ProtectedRoute user={authCtx?.userState}>
+              <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/select-project'
+            element={
+              <ProtectedRoute>
+                <ProjectSelect />
               </ProtectedRoute>
             }
           />
@@ -31,8 +41,9 @@ export const App = () => {
           <Route path="signup" element={<SignUp />} />
           <Route path="*" element={<p>There's nothing here: 404!</p>} />
         </Routes>
-      </AuthContextProvider>
-    </ToastMessageContextProvider>
+      </ToastMessageContextProvider>
+    </AuthContextProvider >
+
   );
 }
 

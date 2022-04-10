@@ -1,9 +1,15 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
 import { User } from "./interfaces/user.interface";
 
 
-export const ProtectedRoute = ({ user,
-    children }: ProtectedRouteProps) => {
+
+export const ProtectedRoute = (
+    { children }: ProtectedRouteProps) => {
+
+    const authCtx = useAuthContext()
+    const user = authCtx?.userState
+
     if (!user) {
         return <Navigate to='/signin' replace />;
     }
@@ -12,7 +18,7 @@ export const ProtectedRoute = ({ user,
     return children
 };
 
+
 type ProtectedRouteProps = {
-    user: User | null,
     children: JSX.Element
 };

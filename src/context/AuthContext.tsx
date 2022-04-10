@@ -1,4 +1,4 @@
-import React, { useCallback, useState, createContext, useReducer } from "react";
+import React, { useCallback, useState, createContext, useEffect } from "react";
 import { User } from "../interfaces/user.interface";
 
 export interface AuthContextType {
@@ -7,7 +7,7 @@ export interface AuthContextType {
     removeUserContext: () => void;
 };
 
-const isAuthenticated: () => User | null = () => {
+const getLocalUser: () => User | null = () => {
     const user = localStorage.getItem('parcelNerd-user');
     if (!user) {
         return null
@@ -15,16 +15,15 @@ const isAuthenticated: () => User | null = () => {
     return JSON.parse(user);
 };
 
-const initialState = isAuthenticated()
-
-export const AuthContext = createContext<AuthContextType | null>({
-    userState: initialState,
-    addUserContext: (user: User) => { },
-    removeUserContext: () => { }
-});
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthContextProvider: React.FC = ({ children }) => {
-    const [userState, setUserState] = useState(initialState)
+    const [userState, setUserState] = useState<User | null>(null)
+
+    useEffect(() => {
+        const localUser = getLocalUser();
+        setUserState(localUser);
+    }, []);
 
     const addUserContext = useCallback(
         (user: User) => {

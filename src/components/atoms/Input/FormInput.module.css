@@ -11,6 +11,6 @@
 }
 
 .input:focus {
-  border: 0.25px solid;
-  border-color: rgb(31 41 55);
+  border: 2px solid;
+  border-color: #1976d2;
 }

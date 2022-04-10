@@ -1,0 +1,16 @@
+.customLink {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+p {
+  display: inline-block;
+  margin: 15px;
+}
+
+.link {
+  display: inline-block;
+}

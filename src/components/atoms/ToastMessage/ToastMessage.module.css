@@ -1,9 +1,9 @@
 .toast__message {
-  background-color: rgb(221, 221, 221);
-  /* color: #fff; */
+  background-color: #1976d2;
+  color:white;
   font-weight: bold;
   text-align: center;
-  border-radius: 2px;
+  border-radius: 10px;
   padding: 16px;
   z-index: 1;
   animation: fadein 0.5s;
@@ -21,3 +21,4 @@
     opacity: 1;
   }
 }
+
