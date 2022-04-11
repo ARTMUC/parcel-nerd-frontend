@@ -1,9 +1,15 @@
 import React from 'react';
-import styles from './FormInput.module.css';
+import styles from './Select.module.css';
 
 
-export const FormInput = (props: any) => {
+export const Select = (props: any) => {
     return (
-        <input type='select' className={styles.input} />
+        <select>
+            <option>asdfadsf</option>
+            <option>asdfadsf</option>
+            <option>asdfadsf</option>
+            <option>asdfadsf</option>
+            <option>asdfadsf</option>
+        </select>
     );
 }

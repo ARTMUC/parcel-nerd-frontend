@@ -8,6 +8,7 @@ export const ProtectedRoute = (
     { children }: ProtectedRouteProps) => {
 
     const authCtx = useAuthContext()
+    console.log(authCtx)
     const user = authCtx?.userState
 
     if (!user) {

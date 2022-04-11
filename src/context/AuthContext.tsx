@@ -15,15 +15,12 @@ const getLocalUser: () => User | null = () => {
     return JSON.parse(user);
 };
 
+const initialState = getLocalUser()
+
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthContextProvider: React.FC = ({ children }) => {
-    const [userState, setUserState] = useState<User | null>(null)
-
-    useEffect(() => {
-        const localUser = getLocalUser();
-        setUserState(localUser);
-    }, []);
+    const [userState, setUserState] = useState<User | null>(initialState)
 
     const addUserContext = useCallback(
         (user: User) => {
