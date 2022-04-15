@@ -2,10 +2,9 @@ import { LoginData } from "../interfaces/login-data.interface.";
 import { RegisterData } from "../interfaces/register-data.interface";
 import { ServerError } from "../interfaces/server-error.interface";
 import { User } from "../interfaces/user.interface";
-import { FetchError } from "./error";
+import { defaultErrMessage, FetchError, mapServerResponse } from "./error";
 
 const API_URL = "http://localhost:3000/auth/";
-const defaultErrMessage = "Something went wrong, Please try again later";
 
 export const loginUser = async (loginData: LoginData): Promise<User | void> => {
   try {
@@ -21,17 +20,7 @@ export const loginUser = async (loginData: LoginData): Promise<User | void> => {
 
     body && localStorage.setItem("parcelNerd-user", JSON.stringify(body));
 
-    switch (response.status) {
-      case 200:
-        return body;
-      case 400:
-      case 403:
-      case 404:
-      case 500:
-        throw new Error(body.message);
-      default:
-        throw new Error(defaultErrMessage);
-    }
+    return mapServerResponse<User>(response, body);
   } catch (error: unknown) {
     if (error instanceof FetchError) {
       throw error;
@@ -54,21 +43,12 @@ export const registerUser = async (
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({ email, name, password }),
     });
     const body = await response.json();
 
-    switch (response.status) {
-      case 201:
-        return body;
-      case 400:
-      case 403:
-      case 404:
-      case 500:
-        throw new FetchError(body.message);
-      default:
-        throw new FetchError(defaultErrMessage);
-    }
+    return mapServerResponse<User>(response, body);
   } catch (error: unknown) {
     if (error instanceof FetchError) {
       throw error;

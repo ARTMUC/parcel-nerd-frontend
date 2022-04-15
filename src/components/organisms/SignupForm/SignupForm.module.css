@@ -1,21 +1,7 @@
 .form {
-  background-color: rgb(221, 221, 221);
   display: grid;
   place-items: center;
   grid-template-rows: 200px 70px 70px 70px 70px 1fr;
   gap: 0px;
   height: 600px;
-  width: 500px;
-  border-radius: 10px;
 }
-
-@media (max-width: 960px) {
-}
-
-@media (max-width: 500px) {
-  .form {
-    width: 90%;
-  }
-}
-
-

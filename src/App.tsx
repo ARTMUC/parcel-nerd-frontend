@@ -10,7 +10,8 @@ import { SignUp } from './pages/SignUp/SignUp';
 import { SignIn } from './pages/SignIn/SignIn';
 import { useAuthContext } from './hooks/useAuthContext';
 import { AuthContextProvider } from './context/AuthContext';
-import { ProjectSelect } from './pages/ProjectSelect/ProjectSelect';
+import { ProjectSelectScreen } from './pages/ProjectSelect/ProjectSelectScreen';
+
 
 export const App = () => {
 
@@ -33,7 +34,7 @@ export const App = () => {
             path='/select-project'
             element={
               <ProtectedRoute>
-                <ProjectSelect />
+                <ProjectSelectScreen />
               </ProtectedRoute>
             }
           />

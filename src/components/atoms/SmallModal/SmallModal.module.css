@@ -1,0 +1,15 @@
+.modal {
+  background-color: rgb(221, 221, 221);
+  /* height: 600px; */
+  width: 500px;
+  border-radius: 10px;
+}
+
+@media (max-width: 960px) {
+}
+
+@media (max-width: 500px) {
+  .modal {
+    width: 90%;
+  }
+}

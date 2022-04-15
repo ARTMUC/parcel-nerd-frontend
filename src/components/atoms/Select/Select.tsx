@@ -2,14 +2,10 @@ import React from 'react';
 import styles from './Select.module.css';
 
 
-export const Select = (props: any) => {
+export const Select = ({ name, options, register }: any) => {
     return (
-        <select>
-            <option>asdfadsf</option>
-            <option>asdfadsf</option>
-            <option>asdfadsf</option>
-            <option>asdfadsf</option>
-            <option>asdfadsf</option>
+        <select classNmae={styles.select} name={name} {...register}>
+            {options && options.map((option: string, index: number) => <option key={index} value={option}>{option}</option>)}
         </select>
     );
 }
