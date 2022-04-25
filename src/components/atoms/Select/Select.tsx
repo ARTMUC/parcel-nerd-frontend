@@ -1,11 +1,22 @@
 import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import styles from './Select.module.css';
 
 
-export const Select = ({ name, options, register }: any) => {
+export const Select = ({  options, register }: SelectProps) => {
     return (
-        <select classNmae={styles.select} name={name} {...register}>
-            {options && options.map((option: string, index: number) => <option key={index} value={option}>{option}</option>)}
+        <select className={styles.select} {...register}>
+            {options && options.map((option: Option, index: number) => <option key={option.id} value={option.id}>{option.text}</option>)}
         </select>
     );
+}
+
+type Option ={
+id: string,
+text:string
+}
+
+type SelectProps = {
+options: Option[] | null,
+register:UseFormRegisterReturn
 }

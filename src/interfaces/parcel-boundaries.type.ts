@@ -1,1 +1,6 @@
-export type ParcelBounds = [number, number][];
+export interface ParcelBounds {
+    "x": number,
+    "y": number
+};
+
+

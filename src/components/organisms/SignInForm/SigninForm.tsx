@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { FaGlobeEurope } from 'react-icons/fa';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 import { useToastMessageContext } from '../../../hooks/useToastMessageContext';
-import { LoginData } from '../../../interfaces/login-data.interface.';
+import { LoginData } from '../../../interfaces/login-data.interface';
 import { loginUser } from '../../../services/authService';
-import { FormButton } from '../../atoms/FormButton/FormButton';
+import { Container } from '../../atoms/Container/Container';
 import { IconGlobe } from '../../atoms/IconGlobe/IconGlobe';
-import { LoadingCircle } from '../../atoms/LoadingCircle/LoadingCircle';
 import { SmallModal } from '../../atoms/SmallModal/SmallModal';
 import { FormButtonWithLink } from '../../molecules/FormButtonWithLink/FormButtonWithLink';
 import { InputWithError } from '../../molecules/InputWithError/InputWithError';
@@ -44,6 +42,7 @@ export const SigninForm = () => {
 
 
     return (
+        <Container>
         <SmallModal>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 
@@ -64,6 +63,7 @@ export const SigninForm = () => {
 
             </form>
         </SmallModal>
+        </Container>
     );
 }
 

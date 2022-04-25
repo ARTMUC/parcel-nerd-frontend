@@ -1,5 +1,7 @@
 import { ServerError } from "../interfaces/server-error.interface";
 
+export const API_URL = "http://localhost:3000/";
+
 export const defaultErrMessage = "Something went wrong. Please try again later";
 
 export class FetchError extends Error {

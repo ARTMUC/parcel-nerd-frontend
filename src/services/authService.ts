@@ -1,14 +1,12 @@
-import { LoginData } from "../interfaces/login-data.interface.";
+import { LoginData } from "../interfaces/login-data.interface";
 import { RegisterData } from "../interfaces/register-data.interface";
-import { ServerError } from "../interfaces/server-error.interface";
 import { User } from "../interfaces/user.interface";
-import { defaultErrMessage, FetchError, mapServerResponse } from "./error";
+import { API_URL, defaultErrMessage, FetchError, mapServerResponse } from "./fetchUtils";
 
-const API_URL = "http://localhost:3000/auth/";
 
 export const loginUser = async (loginData: LoginData): Promise<User | void> => {
   try {
-    const response = await fetch(`${API_URL}signin`, {
+    const response = await fetch(`${API_URL}auth/signin`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -38,7 +36,7 @@ export const registerUser = async (
     if (password !== repeatPassword) {
       throw new Error("Passwords must match");
     }
-    const response = await fetch(`${API_URL}signup`, {
+    const response = await fetch(`${API_URL}auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +58,7 @@ export const registerUser = async (
 export const logoutUser = async () => {
   try {
     localStorage.removeItem("parcelNerd-user");
-    await fetch(`${API_URL}signout`, {
+    await fetch(`${API_URL}auth/signout`, {
       method: "GET",
       credentials: "include",
     });

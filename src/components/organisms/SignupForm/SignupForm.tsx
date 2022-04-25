@@ -6,6 +6,7 @@ import { useToastMessageContext } from '../../../hooks/useToastMessageContext';
 import { RegisterData } from '../../../interfaces/register-data.interface';
 import { User } from '../../../interfaces/user.interface';
 import { registerUser } from '../../../services/authService';
+import { Container } from '../../atoms/Container/Container';
 import { FormButton } from '../../atoms/FormButton/FormButton';
 import { IconGlobe } from '../../atoms/IconGlobe/IconGlobe';
 import { LoadingCircle } from '../../atoms/LoadingCircle/LoadingCircle';
@@ -41,6 +42,7 @@ export const SignupForm = () => {
 
 
     return (
+        <Container>
         <SmallModal>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 
@@ -64,6 +66,7 @@ export const SignupForm = () => {
 
             </form>
         </SmallModal>
+        </Container>
     );
 }
 
