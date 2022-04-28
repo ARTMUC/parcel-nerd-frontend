@@ -1,5 +1,6 @@
-.container {
-  height: 90vh;
+.form {
+  height: 25vh;
   display: grid;
+  grid-template-rows: 1fr 1fr;
   place-items: center;
 }

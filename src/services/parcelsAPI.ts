@@ -1,5 +1,4 @@
 import { LineCoordinates } from "../interfaces/line-coordinates.type";
-import { ParcelBounds } from "../interfaces/parcel-boundaries.type";
 import { ParcelInfo } from "../interfaces/parcel-info.interface";
 
 export const checkParcelData = async (

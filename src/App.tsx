@@ -11,6 +11,7 @@ import { SignIn } from './pages/SignIn/SignIn';
 import { useAuthContext } from './hooks/useAuthContext';
 import { AuthContextProvider } from './context/AuthContext';
 import { ProjectSelectScreen } from './pages/ProjectSelect/ProjectSelectScreen';
+import { ProjectContextProvider } from './context/ProjectContext';
 
 
 export const App = () => {
@@ -19,6 +20,7 @@ export const App = () => {
 
   return (
     <AuthContextProvider>
+      <ProjectContextProvider>
       <ToastMessageContextProvider>
 
         <Routes>
@@ -43,6 +45,7 @@ export const App = () => {
           <Route path="*" element={<p>There's nothing here: 404!</p>} />
         </Routes>
       </ToastMessageContextProvider>
+      </ProjectContextProvider>
     </AuthContextProvider >
 
   );

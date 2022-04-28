@@ -12,7 +12,8 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 
 
-export const ParcelList = ({ parcelsInfoList, isParcelListShown, handleToggleParcelList, handleChangeParcelList }: ParcelListProps) => {
+export const ParcelList = ({  isParcelListShown, handleToggleParcelList }: ParcelListProps) => {
+
 
     const columns: GridColDef[] = [
         {
@@ -48,31 +49,29 @@ export const ParcelList = ({ parcelsInfoList, isParcelListShown, handleTogglePar
 
 
     return (
-
-        <Modal
-            open={isParcelListShown}
-            onClose={handleToggleParcelList}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <div className={styles.container}>
-                <div className={styles.button_close}>
-                    <IconButton onClick={handleToggleParcelList} color="secondary">
-                        <CloseIcon fontSize="large" />
-                    </IconButton>
-                </div>
-                <div className={styles.list}>
-                    <DataGrid editMode="row" rows={parcelsInfoList} columns={columns} onEditCellPropsChange={(params) => handleChangeParcelList(params)} />
-                </div>
-            </div >
-        </Modal >
+<div></div>
+        // <Modal
+        //     open={isParcelListShown}
+        //     onClose={handleToggleParcelList}
+        //     aria-labelledby="modal-modal-title"
+        //     aria-describedby="modal-modal-description"
+        // >
+        //     <div className={styles.container}>
+        //         <div className={styles.button_close}>
+        //             <IconButton onClick={handleToggleParcelList} color="secondary">
+        //                 <CloseIcon fontSize="large" />
+        //             </IconButton>
+        //         </div>
+        //         <div className={styles.list}>
+        //             <DataGrid editMode="row" rows={parcelsInfoList} columns={columns} onEditCellPropsChange={(params) => console.log(params)} />
+        //         </div>
+        //     </div >
+        // </Modal >
     );
 };
 
 type ParcelListProps = {
-    parcelsInfoList: ParcelInfo[];
     isParcelListShown: boolean;
     handleToggleParcelList: () => void;
-    handleChangeParcelList: (params: GridEditCellPropsParams) => void;
 };
 

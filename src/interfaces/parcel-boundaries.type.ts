@@ -1,6 +1,3 @@
-export interface ParcelBounds {
-    "x": number,
-    "y": number
-};
+export type ParcelBounds = [number,number]
 
 

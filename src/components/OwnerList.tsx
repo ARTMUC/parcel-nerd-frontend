@@ -12,7 +12,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 
 
-export const OwnerList = ({ ownersInfoList, isOwnersListShown, handleToggleOwnersList, handleChangeParcelList }: ParcelListProps) => {
+export const OwnerList = ({ ownersInfoList, isOwnersListShown, handleToggleOwnersList }: ParcelListProps) => {
 
     const columns: GridColDef[] = [
         {
@@ -63,7 +63,7 @@ export const OwnerList = ({ ownersInfoList, isOwnersListShown, handleToggleOwner
                 </div>
                 <div className={styles.list}>
 
-                    <DataGrid editMode="row" rows={ownersInfoList} columns={columns} onEditCellPropsChange={(params) => handleChangeParcelList(params)} />
+                    <DataGrid editMode="row" rows={ownersInfoList} columns={columns} onEditCellPropsChange={(params) =>console.log(params)} />
 
 
                 </div>
@@ -80,6 +80,6 @@ type ParcelListProps = {
     ownersInfoList: any;
     isOwnersListShown: boolean;
     handleToggleOwnersList: () => void;
-    handleChangeParcelList: (params: GridEditCellPropsParams) => void;
+
 };
 
