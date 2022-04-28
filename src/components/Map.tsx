@@ -1,18 +1,17 @@
 // rscp
 
 import { useEffect, useState } from 'react';
-
 import { MapContainer, Polyline, TileLayer, WMSTileLayer, Polygon } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
-import styles from './Map.module.css';
-import L, { LatLngBoundsLiteral } from 'leaflet';
+import L from 'leaflet';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { Fab } from '@mui/material';
 import { useToastMessageContext } from '../hooks/useToastMessageContext';
 import { useProjectContext } from '../hooks/useProjectContext';
-import { addNewParcelByXY } from '../services/parcelsService';
+import { addNewParcelByXY, getAllParcels } from '../services/parcelsService';
 import { ParcelInfo } from '../interfaces/parcel-info.interface';
-
+import { ResponseParcelInfo } from '../interfaces/response-parcel-info.interface';
+import { Fab } from '@mui/material';
+import styles from './Map.module.css';
 
 
 
@@ -22,12 +21,15 @@ export const Map = ({ pipeCoords, isCheckingBounds, isWmsShown }: MapProps) => {
     const { addToastMessage } = useToastMessageContext();
     const { projectId, parcels, setParcelsCtx } = useProjectContext();
     const [map, setMap] = useState<L.Map>()
-    const [parcel, setParcel] = useState<ParcelInfo[]>([])
-
+    const [newParcel, setNewParcel] = useState<ParcelInfo[]>([])
 
     useEffect(() => {
-        setParcelsCtx([...parcels, ...parcel])
-    }, [parcel])
+        fetchParcelsData()
+    }, [])
+
+    useEffect(() => {
+        setParcelsCtx([...parcels, ...newParcel])
+    }, [newParcel])
 
 
 
@@ -63,10 +65,35 @@ export const Map = ({ pipeCoords, isCheckingBounds, isWmsShown }: MapProps) => {
         if (leafletContainerId !== 3) {
             const parcelId = e.sourceTarget._targets[leafletContainerId].options['data-set']
             const parcelData = parcels.filter((e) => e.id === parcelId)
-            addToastMessage(`This parcel ${parcelData[0].parcelNumber} is already on the list.`)
             return parcelData
         }
         return false
+    }
+
+    const fetchParcelsData = async () => {
+        if (!projectId) {
+            addToastMessage('Project not selected')
+            return
+        }
+        const parcels = await getAllParcels(projectId)
+        if (!parcels) {
+            addToastMessage(`Failed getting parcels info.`)
+            return
+        }
+        const mappedParcels = mapParcelsData(parcels)
+        setParcelsCtx(mappedParcels)
+    }
+
+
+    const mapParcelsData = (parcelsInfo: ResponseParcelInfo[]): ParcelInfo[] => {
+        return parcelsInfo.map((parcel) => {
+            return {
+                ...parcel,
+                parcelBounds: parcel.parcelBounds.map((point) => {
+                    return [point.x, point.y]
+                })
+            }
+        })
     }
 
 
@@ -75,12 +102,10 @@ export const Map = ({ pipeCoords, isCheckingBounds, isWmsShown }: MapProps) => {
         if (!isCheckingBounds) {
             map.on("click", async function (e: L.LeafletMouseEvent) {
 
-                const clickedElement = e?.originalEvent?.srcElement as any
-                const leafletContainerId: number = clickedElement?._leaflet_id
-                const parcelId = e.sourceTarget._targets[leafletContainerId].options['data-set']
-                const parcelData = parcels.filter((e: { id: any; }) => e.id === parcelId)
-                if (parcelData.length > 0) {
-                    addToastMessage(`This parcel ${parcelData[0].parcelNumber} is already on the list.`)
+                const parcelData = identifyParcelOnMap(e)
+                if (parcelData) {
+                    addToastMessage(`This parcel number is ${parcelData[0].parcelNumber}.`)
+                    return
                 }
 
             });
@@ -92,7 +117,10 @@ export const Map = ({ pipeCoords, isCheckingBounds, isWmsShown }: MapProps) => {
                 if (!projectId) return
 
                 const parcelData = identifyParcelOnMap(e)
-                if (parcelData) return
+                if (parcelData) {
+                    addToastMessage(`This parcel ${parcelData[0].parcelNumber} is already on the list.`)
+                    return
+                }
 
                 const parcelInfo = await addNewParcelByXY(projectId, +e.latlng.lat, +e.latlng.lng)
 
@@ -101,21 +129,13 @@ export const Map = ({ pipeCoords, isCheckingBounds, isWmsShown }: MapProps) => {
                     return
                 }
 
-                const mapped: ParcelInfo[] = [parcelInfo].map((parcel) => {
-                    return {
-                        ...parcel,
-                        parcelBounds: parcel.parcelBounds.map((point) => {
-                            return [point.x, point.y]
-                        })
-                    }
-                })
-                setParcel(mapped)
+                const mapped: ParcelInfo[] = mapParcelsData([parcelInfo])
+                setNewParcel(mapped)
                 return
 
             });
             return () => map.off('click')
         }
-
 
     }, [isCheckingBounds, parcels])
 
@@ -136,8 +156,9 @@ export const Map = ({ pipeCoords, isCheckingBounds, isWmsShown }: MapProps) => {
 
             <div className={styles.button}>
                 <Fab color={"primary"} onClick={locate}>
-                    <LocationOnIcon fontSize="large" />
+                    {/* <LocationOnIcon fontSize="large" /> */}
                 </Fab>
+
             </div>
 
         </>
