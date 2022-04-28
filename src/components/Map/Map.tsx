@@ -5,11 +5,11 @@ import { MapContainer, Polyline, TileLayer, WMSTileLayer, Polygon } from 'react-
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { useToastMessageContext } from '../hooks/useToastMessageContext';
-import { useProjectContext } from '../hooks/useProjectContext';
-import { addNewParcelByXY, getAllParcels } from '../services/parcelsService';
-import { ParcelInfo } from '../interfaces/parcel-info.interface';
-import { ResponseParcelInfo } from '../interfaces/response-parcel-info.interface';
+import { useToastMessageContext } from '../../hooks/useToastMessageContext';
+import { useProjectContext } from '../../hooks/useProjectContext';
+import { addNewParcelByXY, getAllParcels } from '../../services/parcelsService';
+import { ParcelInfo } from '../../interfaces/parcel-info.interface';
+import { ResponseParcelInfo } from '../../interfaces/response-parcel-info.interface';
 import { Fab } from '@mui/material';
 import styles from './Map.module.css';
 

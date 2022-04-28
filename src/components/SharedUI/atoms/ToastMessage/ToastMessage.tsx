@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ToastMessageInterface } from '../../../context/ToastMessageContext';
+import { ToastMessageInterface } from '../../../../context/ToastMessageContext';
 import styles from './ToastMessage.module.css';
 
 

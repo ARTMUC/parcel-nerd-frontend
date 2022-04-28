@@ -1,5 +1,6 @@
-import { ToastMessageInterface } from '../../../context/ToastMessageContext';
-import { ToastMessage } from '../../atoms/ToastMessage/ToastMessage';
+
+import { ToastMessageInterface } from '../../context/ToastMessageContext';
+import { ToastMessage } from '../SharedUI/atoms/ToastMessage/ToastMessage';
 import styles from './ToastMessageList.module.css';
 
 
