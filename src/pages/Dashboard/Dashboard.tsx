@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { Map } from '../../components/Map/Map';
 import { ParcelInfo } from '../../interfaces/parcel-info.interface';
 import styles from './Dashboard.module.css';
-import { LoadingCircle } from '../../components/LoadingCircle_old';
+
 import { LineCoordinates } from '../../interfaces/line-coordinates.type';
 import { PipeLine } from '../../components/PipeLine';
 import { Hub } from '../../components/Hub';
 import { ParcelList } from '../../components/ParcelList';
 import { GridEditCellPropsParams } from '@mui/x-data-grid';
 import { OwnerList } from '../../components/OwnerList';
+import { FixedLoadingCircle } from '../../components/SharedUI/atoms/FixedLoadingCircle/FixedLoadingCircle';
 
 export const Dashboard = () => {
 
@@ -71,7 +72,7 @@ export const Dashboard = () => {
         <div className={styles.container} >
             <Hub toggleCheckBounds={toggleCheckBounds} toggleWMSDisplay={toggleWMSDisplay} isCheckingBounds={isCheckingBounds} handleTogglePipeEdit={handleTogglePipeEdit} isPipeEdit={isPipeEdit} isWmsShown={isWmsShown} isParcelListShown={isParcelListShown} handleToggleParcelList={handleToggleParcelList} handleToggleOwnersList={handleToggleOwnersList} isOwnersListShown={isOwnersListShown} />
 
-            {isLoading ? <LoadingCircle /> : <Map pipeCoords={pipeCoords} isCheckingBounds={isCheckingBounds} isWmsShown={isWmsShown} />}
+            {isLoading ? <FixedLoadingCircle /> : <Map pipeCoords={pipeCoords} isCheckingBounds={isCheckingBounds} isWmsShown={isWmsShown} />}
 
             {isPipeEdit && <PipeLine handleTogglePipeEdit={handleTogglePipeEdit} isPipeEdit={isPipeEdit} handleAddNewPipeCoord={handleAddNewPipeCoord} handleDeletePipeCoord={handleDeletePipeCoord} pipeCoords={pipeCoords} />}
 

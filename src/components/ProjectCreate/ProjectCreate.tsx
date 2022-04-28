@@ -6,11 +6,12 @@ import { CreateProject } from '../../interfaces/createProject.interface';
 import { Project } from '../../interfaces/project.interface';
 import { addProject, getAllProjects } from '../../services/projectsService';
 import { FormButton } from '../SharedUI/atoms/FormButton/FormButton';
-import { LoadingCircle } from '../LoadingCircle_old';
+
 
 
 import styles from './ProjectCreate.module.css';
 import { InputWithError } from '../SharedUI/molecules/InputWithError/InputWithError';
+import { LoadingCircle } from '../SharedUI/atoms/LoadingCircle/LoadingCircle';
 
 export const ProjectCreate = () => {
 
