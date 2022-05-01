@@ -1,7 +1,7 @@
-import { ResponseParcelBounds } from "./response-parcel-boundaries.type";
+import { MappedParcelBounds } from "./mapped-parcel-boundaries.type";
 
 
-export interface ResponseParcelInfo  {
+export interface MappedParcelInfo  {
   id:string
   parcelNumber: string;
   voivodeship: string;
@@ -11,7 +11,7 @@ export interface ResponseParcelInfo  {
   class?: string;
   projectId: string;
   userId: string;
-  parcelBounds: ResponseParcelBounds[];
+  parcelBounds: MappedParcelBounds[];
  
 }
 

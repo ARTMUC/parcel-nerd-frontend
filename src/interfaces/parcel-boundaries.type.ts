@@ -1,3 +1,6 @@
-export type ParcelBounds = [number,number]
+export type ParcelBounds = {
+    "x": number,
+    "y": number
+};
 
 

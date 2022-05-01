@@ -1,14 +1,14 @@
-import { ResponseParcelInfo } from "../interfaces/response-parcel-info.interface";
+import { ParcelInfo } from "../interfaces/parcel-info.interface";
 import { ServerError } from "../interfaces/server-error.interface";
 import { API_URL, defaultErrMessage, FetchError, mapServerResponse } from "./fetchUtils";
 
 
-export const getAllParcels = async (projectId: string): Promise<ResponseParcelInfo[] | void> => {
+export const getAllParcels = async (projectId: string): Promise<ParcelInfo[] | void> => {
   try {
     const response = await fetch(`${API_URL}parcels/${projectId}`, { credentials: "include" });
-    const body: ResponseParcelInfo[] | ServerError = await response.json();
+    const body: ParcelInfo[] | ServerError = await response.json();
 
-    return mapServerResponse<ResponseParcelInfo[]>(response, body);
+    return mapServerResponse<ParcelInfo[]>(response, body);
   } catch (error: unknown) {
     if (error instanceof FetchError) {
       throw error;
@@ -20,7 +20,7 @@ export const getAllParcels = async (projectId: string): Promise<ResponseParcelIn
 
 
 export const addNewParcelByXY = async (projectId: string, x: number,
-  y: number): Promise<ResponseParcelInfo | void> => {
+  y: number): Promise<ParcelInfo | void> => {
   try {
 
 const data = JSON.stringify({x,y})
@@ -33,9 +33,9 @@ const data = JSON.stringify({x,y})
       },
       body: data,
     });
-    const body: ResponseParcelInfo | ServerError = await response.json();
+    const body: ParcelInfo | ServerError = await response.json();
 
-    return mapServerResponse<ResponseParcelInfo>(response, body);
+    return mapServerResponse<ParcelInfo>(response, body);
   } catch (error: unknown) {
     if (error instanceof FetchError) {
       throw error;
