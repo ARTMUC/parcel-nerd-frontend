@@ -12,19 +12,15 @@ import L from 'leaflet';
 import { MappedParcelInfo } from '../../interfaces/mapped-parcel-info.interface';
 
 
-
-
-
 const wmsProps = {
-
     opacity: 1,
     format: "image/png",
     control: true,
     tiled: true,
     maxZoom: 20,
     transparent: true,
-    keepBuffer: 2,
-    tileSize: 2000
+    keepBuffer: 20,
+    tileSize: 1024
 }
 
 const parcelsWmsUrl = {
@@ -134,8 +130,10 @@ export const Map = ({ pipeCoords, isCheckingBounds, isWmsShown }: MapProps) => {
     return (
 
         <>
-            <MapContainer center={pipeCoords.length > 0 ? pipeCoords[0] : [50.23, 18.99]} zoom={18} scrollWheelZoom={true} style={{ height: "100vh" }} maxZoom={18} whenCreated={(map) => setMap(map)}>
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={18} eventHandlers={{ click: (e) => console.log(e) }} />
+            <MapContainer center={pipeCoords.length > 0 ? pipeCoords[0] : [50.23, 18.99]} zoom={20} scrollWheelZoom={true} style={{ height: "100vh" }} maxZoom={20} whenCreated={(map) => setMap(map)}>
+                {/* <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={20} eventHandlers={{ click: (e) => console.log(e) }} /> */}
+                {/* <TileLayer url='http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}' subdomains={['mt0', 'mt1', 'mt2', 'mt3']} maxZoom={20} eventHandlers={{ click: (e) => console.log(e) }} /> */}
+                <TileLayer url={'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'} subdomains={['mt0', 'mt1', 'mt2', 'mt3']} maxZoom={20} eventHandlers={{ click: (e) => console.log(e) }} />
                 {isWmsShown && <WMSTileLayer {...wmsProps} {...parcelsWmsUrl} eventHandlers={{ load: (e) => console.log('wms loaded') }} />}
                 {isWmsShown && <WMSTileLayer {...wmsProps} {...civilWmsUrl} />}
                 {mapParcelsData(parcels).map((parcel, index) => {
