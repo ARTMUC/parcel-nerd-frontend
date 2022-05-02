@@ -9,6 +9,6 @@ export const SmallModal = ({ children }: SmallModalProps) => {
 }
 
 type SmallModalProps = {
-    children: JSX.Element
+    children: JSX.Element[] | JSX.Element
 }
 

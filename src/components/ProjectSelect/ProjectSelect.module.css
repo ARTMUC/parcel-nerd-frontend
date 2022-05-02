@@ -1,6 +1,28 @@
-.form {
-  height: 25vh;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  place-items: center;
+.heading {
+  font-size: 50px;
+  color: rgb(159, 15, 135);
+  text-decoration: underline double 5px;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  list-style-type: none;
+}
+
+.element {
+  margin: 50px;
+  cursor: pointer;
+}
+
+.title {
+  display: block;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }

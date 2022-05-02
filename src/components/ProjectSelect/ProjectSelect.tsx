@@ -14,20 +14,15 @@ import styles from './ProjectSelect.module.css';
 
 export const ProjectSelect = () => {
 
-    interface ProjectSelect {
-        [x: string]: string
-    }
-
     const { projectId, addProjectId } = useProjectContext();
-    const { addToastMessage } = useToastMessageContext();
     const [isLoading, setIsLoading] = useState(false)
+    const { addToastMessage } = useToastMessageContext();
     const [projects, setProjects] = useState<Project[] | null>(null)
     const navigate = useNavigate();
 
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit: SubmitHandler<ProjectSelect> = async (data) => {
-        addProjectId(data.project)
+    const selectProject = (id: string) => {
+        addProjectId(id)
         navigate("../", { replace: true });
     };
 
@@ -48,27 +43,20 @@ export const ProjectSelect = () => {
         getProjects()
     }, [getProjects])
 
-    const projectsTitles = projects && projects.map(project => {
-        return {
-            id: project.id,
-            text: project.title
-        }
-    })
-
     return (
         <Container>
-            <SmallModal>
-                <div>
-                    <h1>SELECT PROJECT TO START</h1>
-                    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-                        <Select options={projectsTitles} register={register("project", { required: true })} />
-                        <FormButton type={'submit'} value={'Open Project'} />
-                    </form>
-                    <FormButton type={'submit'} value={'Manage Projects'} />
-                </div>
-            </SmallModal >
+            <h1 className={styles.heading}>SELECT PROJECT</h1>
+            <ul className={styles.list}>
+                {projects && projects.map(project => {
+                    return <li className={styles.element} key={project.id} onClick={() => selectProject(project.id)}>
+                        <SmallModal>
+                            <h2 className={styles.title}>{project.title}</h2>
+                            <p>{project.content}</p>
+                        </SmallModal>
+                    </li>
+                })}
+            </ul>
         </Container>
-
     );
 }
 
