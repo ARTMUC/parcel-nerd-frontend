@@ -7,8 +7,10 @@ import { Project } from '../../interfaces/project.interface';
 import { getAllProjects } from '../../services/projectsService';
 import { Container } from '../SharedUI/atoms/Container/Container';
 import { FormButton } from '../SharedUI/atoms/FormButton/FormButton';
+import { Button } from '../SharedUI/atoms/RoundButton/Button';
 import { Select } from '../SharedUI/atoms/Select/Select';
 import { SmallModal } from '../SharedUI/atoms/SmallModal/SmallModal';
+import { FiSettings } from 'react-icons/fi';
 
 import styles from './ProjectSelect.module.css';
 
@@ -45,18 +47,31 @@ export const ProjectSelect = () => {
 
     return (
         <Container>
-            <h1 className={styles.heading}>SELECT PROJECT</h1>
             <ul className={styles.list}>
                 {projects && projects.map(project => {
-                    return <li className={styles.element} key={project.id} onClick={() => selectProject(project.id)}>
+                    return <li className={styles.element} key={project.id} >
                         <SmallModal>
-                            <h2 className={styles.title}>{project.title}</h2>
-                            <p>{project.content}</p>
+                            <div className={styles.card}>
+                                <div className={styles.header}>
+                                    <h1 className={styles.title}>{project.title}</h1>
+                                    <Button height={'40px'} radius={'100%'} width={'40px'} onClick={(e) => { console.log('clicked') }}>
+                                        <FiSettings />
+                                    </Button>
+                                </div>
+                                <p className={styles.description}>{project.content}</p>
+                                <Button height={'50px'} width={'200px'} onClick={() => { selectProject(project.id) }}>
+                                    Select Project
+                                </Button>
+                            </div>
                         </SmallModal>
                     </li>
                 })}
             </ul>
-        </Container>
+            <div className={styles.rounded_btn}>
+                <Button height={'75px'} radius={'100px'} width={'75px'} onClick={() => console.log('clicked')}>+</Button>
+            </div>
+
+        </Container >
     );
 }
 
