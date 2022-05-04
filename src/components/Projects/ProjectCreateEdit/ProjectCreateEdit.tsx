@@ -4,7 +4,7 @@ import { useAuthContext } from '../../../hooks/useAuthContext';
 import { useToastMessageContext } from '../../../hooks/useToastMessageContext';
 import { CreateProject } from '../../../interfaces/createProject.interface';
 import { Project } from '../../../interfaces/project.interface';
-import { addProject, getAllProjects } from '../../../services/projectsService';
+import { addProject, getAllProjects, patchProject } from '../../../services/projectsService';
 import { FormButton } from '../../SharedUI/atoms/FormButton/FormButton';
 
 
@@ -19,17 +19,17 @@ export const ProjectCreateEdit = ({ editProject, isCreateEdit }: ProjectCreateEd
 
     const { addToastMessage } = useToastMessageContext();
     const [isLoading, setIsLoading] = useState(false)
-    const { setValue, register, handleSubmit, formState: { errors } } = useForm<CreateProject>();
+    const { setValue, register, handleSubmit, formState: { errors } } = useForm<Project>();
 
 
 
-    const onSubmit: SubmitHandler<CreateProject> = async (data) => {
+    const onSubmit: SubmitHandler<Project> = async (data) => {
         setIsLoading(true)
         if (editProject) {
-            console.log(JSON.stringify(data), 'changed')
-        } else (
-            console.log(JSON.stringify(data), 'created')
-        )
+            const responce = await patchProject({ ...editProject, ...data })
+        } else {
+            const responce = await addProject(data)
+        }
         setIsLoading(false)
     }
 
