@@ -1,10 +1,12 @@
-import { useContext } from "react";
-import { AuthContext, AuthContextType } from "../context/AuthContext";
+import { useContext } from 'react';
+import { AuthContext, AuthContextType } from '../context/AuthContext';
 
 export const useAuthContext = () => {
-    const authContext = useContext(AuthContext)
+  const authContext = useContext(AuthContext);
 
-    if (!authContext) { throw new Error('Missing AuthContext data') }
+  if (!authContext) {
+    throw new Error('Missing AuthContext data');
+  }
 
-    return authContext
-}
+  return authContext;
+};

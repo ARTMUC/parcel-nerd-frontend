@@ -1,8 +1,7 @@
-import { MappedParcelBounds } from "./mapped-parcel-boundaries.type";
+import { MappedParcelBounds } from './mapped-parcel-boundaries.type';
 
-
-export interface MappedParcelInfo  {
-  id:string
+export interface MappedParcelInfo {
+  id: string;
   parcelNumber: string;
   voivodeship: string;
   county: string;
@@ -12,6 +11,4 @@ export interface MappedParcelInfo  {
   projectId: string;
   userId: string;
   parcelBounds: MappedParcelBounds[];
- 
 }
-

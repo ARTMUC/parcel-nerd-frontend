@@ -9,19 +9,14 @@ import { ProjectSelectScreen } from './pages/ProjectSelect/ProjectSelectScreen';
 import { ProjectContextProvider } from './context/ProjectContext';
 import './App.css';
 
-
 export const App = () => {
-
-
-
   return (
     <AuthContextProvider>
       <ProjectContextProvider>
         <ToastMessageContextProvider>
-
           <Routes>
             <Route
-              path='/'
+              path="/"
               element={
                 <ProtectedRoute>
                   <Dashboard />
@@ -29,7 +24,7 @@ export const App = () => {
               }
             />
             <Route
-              path='/select-project'
+              path="/select-project"
               element={
                 <ProtectedRoute>
                   <ProjectSelectScreen />
@@ -42,9 +37,6 @@ export const App = () => {
           </Routes>
         </ToastMessageContextProvider>
       </ProjectContextProvider>
-    </AuthContextProvider >
-
+    </AuthContextProvider>
   );
-}
-
-
+};

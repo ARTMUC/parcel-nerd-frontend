@@ -1,3 +1,1 @@
-export type MappedParcelBounds = [number,number];
-
-
+export type MappedParcelBounds = [number, number];

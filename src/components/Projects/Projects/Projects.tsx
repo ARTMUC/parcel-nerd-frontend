@@ -6,25 +6,24 @@ import { ProjectSelect } from '../ProjectSelect/ProjectSelect';
 import { ProjectCreateEdit } from '../ProjectCreateEdit/ProjectCreateEdit';
 
 export const Projects = () => {
+  const [editProject, setEditProject] = useState<Project | null>(null);
+  const [isCreateEdit, setIsCreateEdit] = useState(false);
 
-    const [editProject, setEditProject] = useState<Project | null>(null)
-    const [isCreateEdit, setIsCreateEdit] = useState(false)
+  const handleEdit = (val: Project | null) => {
+    setEditProject(val);
+  };
 
-    const handleEdit = (val: Project | null) => {
-        setEditProject(val)
-    }
+  const handleToggleCreateEdit = () => {
+    setIsCreateEdit((prev) => !prev);
+  };
 
-    const handleToggleCreateEdit = () => {
-        setIsCreateEdit(prev => !prev)
-    }
-
-    return (
-        <>
-            {isCreateEdit ? <ProjectCreateEdit editProject={editProject} isCreateEdit={isCreateEdit} /> : <ProjectSelect handleEdit={handleEdit} handleToggleCreateEdit={handleToggleCreateEdit} />}
-        </>
-
-    );
-}
-
-
-
+  return (
+    <>
+      {isCreateEdit ? (
+        <ProjectCreateEdit editProject={editProject} isCreateEdit={isCreateEdit} />
+      ) : (
+        <ProjectSelect handleEdit={handleEdit} handleToggleCreateEdit={handleToggleCreateEdit} />
+      )}
+    </>
+  );
+};

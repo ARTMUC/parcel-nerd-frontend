@@ -1,7 +1,7 @@
-import { ParcelBounds } from "./parcel-boundaries.type";
+import { ParcelBounds } from './parcel-boundaries.type';
 
-export interface ParcelInfo  {
-  id:string
+export interface ParcelInfo {
+  id: string;
   parcelNumber: string;
   voivodeship: string;
   county: string;
@@ -11,6 +11,4 @@ export interface ParcelInfo  {
   projectId: string;
   userId: string;
   parcelBounds: ParcelBounds[];
- 
 }
-
