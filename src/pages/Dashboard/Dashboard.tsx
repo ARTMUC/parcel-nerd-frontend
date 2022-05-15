@@ -12,11 +12,6 @@ import { FixedLoadingCircle } from '../../components/SharedUI/atoms/FixedLoading
 import { Lines } from '../../components/Lines/Lines';
 
 export const Dashboard = () => {
-  const [pipeCoords, setPipeCoords] = useState<any>([
-    [50.6108936116734, 18.97505879356],
-    [50.6008936116734, 18.98505879356]
-  ]);
-
   const [ownersInfoList, setOwnerInfoList] = useState<any[]>([]);
 
   //// this is only temporary - data will be split on the backend probably
@@ -84,11 +79,7 @@ export const Dashboard = () => {
         isOwnersListShown={isOwnersListShown}
       />
 
-      {isLoading ? (
-        <FixedLoadingCircle />
-      ) : (
-        <Map pipeCoords={pipeCoords} isCheckingBounds={isCheckingBounds} isWmsShown={isWmsShown} />
-      )}
+      {isLoading ? <FixedLoadingCircle /> : <Map isCheckingBounds={isCheckingBounds} isWmsShown={isWmsShown} />}
 
       {isPipeEdit && (
         <Lines
@@ -96,7 +87,6 @@ export const Dashboard = () => {
           isPipeEdit={isPipeEdit}
           handleAddNewPipeCoord={handleAddNewPipeCoord}
           handleDeletePipeCoord={handleDeletePipeCoord}
-          pipeCoords={pipeCoords}
         />
       )}
 
