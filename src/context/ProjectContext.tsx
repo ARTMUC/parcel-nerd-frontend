@@ -29,7 +29,15 @@ export const ProjectContextProvider: React.FC = ({ children }) => {
   const [projectId, setProjectId] = useState<string | null>(initialProject);
   const [parcels, setParcels] = useState<ParcelInfo[]>([]);
   const [owners, setOwners] = useState<OwnerInfo[]>([]);
-  const [lines, setLines] = useState<Line[]>([]);
+  const [lines, setLines] = useState<Line[]>([
+    {
+      title: 'my test pipeline',
+      lineCoords: [
+        { x: 50.6108936116734, y: 18.97505879356 },
+        { x: 50.6008936116734, y: 18.98505879356 }
+      ]
+    }
+  ]);
 
   const addProjectId = useCallback(
     (id: string) => {
