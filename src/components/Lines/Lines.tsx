@@ -12,7 +12,7 @@ import { ConnectingAirportsOutlined } from '@mui/icons-material';
 import { LineCoordinates } from '../../interfaces/line-coordinates.type';
 import { useProjectContext } from '../../hooks/useProjectContext';
 
-export const Lines = ({ handleTogglePipeEdit, isPipeEdit, pipeCoords }: PipeLineProps) => {
+export const Lines = ({ handleTogglePipeEdit, isPipeEdit }: PipeLineProps) => {
   const [acadPoints, setAcadPoints] = useState('');
   const { lines, setLinesCtx } = useProjectContext();
 
@@ -65,7 +65,7 @@ export const Lines = ({ handleTogglePipeEdit, isPipeEdit, pipeCoords }: PipeLine
             variant="outlined"
             style={{ minWidth: 500, maxWidth: 500 }}
           />
-          {
+          {/* {
             <ul className={styles.pipe_list}>
               {pipeCoords.length > 0 &&
                 pipeCoords.map((coords: any, index: any) => {
@@ -90,7 +90,7 @@ export const Lines = ({ handleTogglePipeEdit, isPipeEdit, pipeCoords }: PipeLine
                   );
                 })}
             </ul>
-          }
+          } */}
           <ButtonGroup className={styles.btn_container} size="large" aria-label="large button group">
             {/* <Button variant="contained" onClick={() => handleAddNewPipeCoord(parseInput(acadPoints))}>
               ADD NEW
@@ -109,5 +109,4 @@ type PipeLineProps = {
   isPipeEdit: boolean;
   handleAddNewPipeCoord: (coords: LineCoordinates[]) => void;
   handleDeletePipeCoord: (e: any) => void;
-  pipeCoords: any;
 };
