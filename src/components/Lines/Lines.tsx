@@ -1,7 +1,5 @@
 // rscp
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { LineCoordinates } from '../interfaces/line-coordinates.type';
 
 import { Box, Modal, TextareaAutosize, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -9,17 +7,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import styles from './PipeLine.module.css';
+import styles from './Lines.module.css';
 import { ConnectingAirportsOutlined } from '@mui/icons-material';
+import { LineCoordinates } from '../../interfaces/line-coordinates.type';
+import { useProjectContext } from '../../hooks/useProjectContext';
 
-export const PipeLine = ({
-  handleTogglePipeEdit,
-  isPipeEdit,
-  handleAddNewPipeCoord,
-  handleDeletePipeCoord,
-  pipeCoords
-}: PipeLineProps) => {
+export const Lines = ({ handleTogglePipeEdit, isPipeEdit, pipeCoords }: PipeLineProps) => {
   const [acadPoints, setAcadPoints] = useState('');
+  const { lines, setLinesCtx } = useProjectContext();
 
   const parseInput = (string: string) => {
     const r = /[X]=[0-9]*\.[0-9]+\s*[Y]=[0-9]*\.[0-9]+/g;
@@ -27,9 +22,19 @@ export const PipeLine = ({
     setAcadPoints('');
     return [...string.matchAll(r)].map((e) => {
       const arr = [...e[0].matchAll(r2)];
-      return [Number(...arr[0]), Number(...arr[1])] as LineCoordinates;
-    }) as LineCoordinates[];
+      return [Number(...arr[0]), Number(...arr[1])];
+    });
   };
+
+  // const parseInput = (string: string) => {
+  //   const r = /[X]=[0-9]*\.[0-9]+\s*[Y]=[0-9]*\.[0-9]+/g;
+  //   const r2 = /[0-9]*\.[0-9]+/g;
+  //   setAcadPoints('');
+  //   return [...string.matchAll(r)].map((e) => {
+  //     const arr = [...e[0].matchAll(r2)];
+  //     return [Number(...arr[0]), Number(...arr[1])] as LineCoordinates;
+  //   }) as LineCoordinates[];
+  // };
 
   return (
     <Modal
@@ -76,7 +81,7 @@ export const PipeLine = ({
                       <Button
                         variant="outlined"
                         data-index={index}
-                        onClick={(e) => handleDeletePipeCoord(e)}
+                        // onClick={(e) => handleDeletePipeCoord(e)}
                         startIcon={<DeleteIcon />}
                       >
                         Delete
@@ -87,9 +92,9 @@ export const PipeLine = ({
             </ul>
           }
           <ButtonGroup className={styles.btn_container} size="large" aria-label="large button group">
-            <Button variant="contained" onClick={() => handleAddNewPipeCoord(parseInput(acadPoints))}>
+            {/* <Button variant="contained" onClick={() => handleAddNewPipeCoord(parseInput(acadPoints))}>
               ADD NEW
-            </Button>
+            </Button> */}
             {/* <Button variant="contained" onClick={() => handleDrawPipes()}>DRAW PIPES</Button> */}
             {/* <Button >CHECK PARCELS</Button> */}
           </ButtonGroup>

@@ -4,11 +4,12 @@ import { ParcelInfo } from '../../interfaces/parcel-info.interface';
 import styles from './Dashboard.module.css';
 
 import { LineCoordinates } from '../../interfaces/line-coordinates.type';
-import { PipeLine } from '../../components/PipeLine';
+
 import { Hub } from '../../components/Hub';
 import { ParcelList } from '../../components/ParcelList';
 import { OwnerList } from '../../components/OwnerList';
 import { FixedLoadingCircle } from '../../components/SharedUI/atoms/FixedLoadingCircle/FixedLoadingCircle';
+import { Lines } from '../../components/Lines/Lines';
 
 export const Dashboard = () => {
   const [pipeCoords, setPipeCoords] = useState<any>([
@@ -90,7 +91,7 @@ export const Dashboard = () => {
       )}
 
       {isPipeEdit && (
-        <PipeLine
+        <Lines
           handleTogglePipeEdit={handleTogglePipeEdit}
           isPipeEdit={isPipeEdit}
           handleAddNewPipeCoord={handleAddNewPipeCoord}
