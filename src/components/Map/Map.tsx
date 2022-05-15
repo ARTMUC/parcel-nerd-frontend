@@ -3,13 +3,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { MapContainer, Polyline, TileLayer, WMSTileLayer, Polygon } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Fab } from '@mui/material';
-import L from 'leaflet';
+import L, { LatLngExpression } from 'leaflet';
 import { useToastMessageContext } from '../../hooks/useToastMessageContext';
 import { useProjectContext } from '../../hooks/useProjectContext';
 import { addNewParcelByXY, getAllParcels } from '../../services/parcelsService';
 import { ParcelInfo } from '../../interfaces/parcel-info.interface';
 import styles from './Map.module.css';
 import { MappedParcelInfo } from '../../interfaces/mapped-parcel-info.interface';
+import { Line } from '../../interfaces/line.type';
 
 const wmsProps = {
   opacity: 1,
@@ -36,10 +37,16 @@ const civilWmsUrl = {
 const redLines = { color: 'red' };
 const blueLines = { color: 'blue' };
 
-export const Map = ({ pipeCoords, isCheckingBounds, isWmsShown }: MapProps) => {
+export const Map = ({ isCheckingBounds, isWmsShown }: MapProps) => {
   const { addToastMessage } = useToastMessageContext();
-  const { projectId, parcels, setParcelsCtx } = useProjectContext();
+  const { projectId, parcels, lines, setParcelsCtx } = useProjectContext();
   const [map, setMap] = useState<L.Map>();
+
+  const getPositions = (line: Line): [number, number][] => {
+    return line.lineCoords.map((coord) => {
+      return [coord.x, coord.y];
+    });
+  };
 
   const fetchParcelsData = useCallback(async () => {
     if (!projectId) {
@@ -117,7 +124,7 @@ export const Map = ({ pipeCoords, isCheckingBounds, isWmsShown }: MapProps) => {
   return (
     <>
       <MapContainer
-        center={pipeCoords.length > 0 ? pipeCoords[0] : [50.23, 18.99]}
+        center={[50.6108936116734, 18.97505879356]}
         zoom={20}
         scrollWheelZoom
         style={{ height: '100vh' }}
@@ -146,7 +153,17 @@ export const Map = ({ pipeCoords, isCheckingBounds, isWmsShown }: MapProps) => {
             positions={parcel.parcelBounds}
           />
         ))}
-        <Polyline pathOptions={blueLines} positions={pipeCoords} eventHandlers={{ click: (e) => console.log(e) }} />
+        {lines.map((line, index) => {
+          const positions = getPositions(line);
+          return (
+            <Polyline
+              key={index}
+              pathOptions={blueLines}
+              positions={positions}
+              eventHandlers={{ click: (e) => console.log(line.title, e) }}
+            />
+          );
+        })}
       </MapContainer>
 
       <div className={styles.button}>
@@ -159,7 +176,6 @@ export const Map = ({ pipeCoords, isCheckingBounds, isWmsShown }: MapProps) => {
 };
 
 type MapProps = {
-  pipeCoords: any; // will be stored in context, interface yet to be created
   isCheckingBounds: boolean;
   isWmsShown: boolean;
 };
