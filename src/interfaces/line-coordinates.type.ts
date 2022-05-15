@@ -1,1 +1,4 @@
-export type LineCoordinates = [number, number];
+export type LineCoordinates = {
+  x: number;
+  y: number;
+};
