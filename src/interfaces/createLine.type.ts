@@ -1,8 +1,6 @@
 import { LineCoordinates } from './line-coordinates.type';
 
-export interface Line {
-  id: string;
+export interface CreateLine {
   title: string;
-  projectId: string;
   lineCoords: LineCoordinates[];
 }

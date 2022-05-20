@@ -9,7 +9,7 @@ import { Hub } from '../../components/Hub';
 import { ParcelList } from '../../components/ParcelList';
 import { OwnerList } from '../../components/OwnerList';
 import { FixedLoadingCircle } from '../../components/SharedUI/atoms/FixedLoadingCircle/FixedLoadingCircle';
-import { Lines } from '../../components/Lines/Lines';
+import { Lines } from '../../components/Lines/Lines/Lines';
 
 export const Dashboard = () => {
   const [ownersInfoList, setOwnerInfoList] = useState<any[]>([]);
@@ -35,20 +35,6 @@ export const Dashboard = () => {
   const [isPipeEdit, setIsPipeEdit] = useState(false);
   const [isParcelListShown, setIsParcelListShown] = useState(false);
   const [isOwnersListShown, setIsOwnersListShown] = useState(false);
-
-  const handleAddNewPipeCoord = async (coords: LineCoordinates[]) => {
-    // setIsLoading(true)
-    // const pipeConvertedCoords = await convertToDeg(coords)
-    // setPipeCoords(prev => [...prev, pipeConvertedCoords])
-    // setIsLoading(false)
-  };
-
-  const handleDeletePipeCoord = (e: { target: { dataset: { index: string } } }) => {
-    // const elementIndex = e.target.dataset.index;
-    // setPipeCoords((prev) => {
-    //     return prev.filter((el, index) => +elementIndex !== index)
-    // })
-  };
 
   // const handleChangeParcelList = (params: GridEditCellPropsParams) => {
   //     setParcelsInfoList((prev) => prev.map((parcel) => parcel.id === params.id ? { ...parcel, [params.field]: params.props.value } : parcel))
@@ -81,14 +67,7 @@ export const Dashboard = () => {
 
       {isLoading ? <FixedLoadingCircle /> : <Map isCheckingBounds={isCheckingBounds} isWmsShown={isWmsShown} />}
 
-      {isPipeEdit && (
-        <Lines
-          handleTogglePipeEdit={handleTogglePipeEdit}
-          isPipeEdit={isPipeEdit}
-          handleAddNewPipeCoord={handleAddNewPipeCoord}
-          handleDeletePipeCoord={handleDeletePipeCoord}
-        />
-      )}
+      {isPipeEdit && <Lines handleTogglePipeEdit={handleTogglePipeEdit} isPipeEdit={isPipeEdit} />}
 
       {isParcelListShown && (
         <ParcelList isParcelListShown={isParcelListShown} handleToggleParcelList={handleToggleParcelList} />

@@ -1,0 +1,22 @@
+.pipe_list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  max-width: 700px;
+  min-width: 500px;
+  width:80%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 360px;
+}
+
+.list_element {
+  margin: 10px;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 75% 100px;
+  gap: 5px;
+  max-width: 760px;
+  text-transform: uppercase;
+  justify-content: center;
+ }

@@ -11,33 +11,13 @@
   margin-right: auto;
   max-width: 800px; /* Need a specific value to work */
   display: grid;
-  grid-template-rows: 50px 130px 400px 50px;
+  grid-template-rows: 50px 200px 400px ;
   border: 2px solid rgb(204, 204, 204);
   /* gap: 20px; */
   border-radius: 10px;
   place-items: center;
 }
 
-.pipe_list {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-  max-width: 700px;
-  min-width: 500px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 360px;
-}
-
-.list_element {
-  /* margin: 10px; */
-  /* padding: 5px; */
-  display: grid;
-  grid-template-columns: 1fr 100px;
-  gap: 5px;
-  /* height: 55px; */
-  max-width: 760px;
-}
 
 .button_close {
   margin-top: 5px;
@@ -48,4 +28,10 @@
   /* margin: 15px; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.form{
+display:grid;
+grid-row: 1fr 1fr 1fr;
+gap:5px;
 }
