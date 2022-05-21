@@ -30,24 +30,24 @@ export const ProjectContextProvider: React.FC = ({ children }) => {
   const [parcels, setParcels] = useState<ParcelInfo[]>([]);
   const [owners, setOwners] = useState<OwnerInfo[]>([]);
   const [lines, setLines] = useState<Line[]>([
-    {
-      id: 'adfasdf213r12rqfsadf',
-      title: 'my test pipeline',
-      projectId: 'asdfasdfljshadfahsdf',
-      lineCoords: [
-        { x: 50.6108936116734, y: 18.97505879356 },
-        { x: 50.6008936116734, y: 18.98505879356 }
-      ]
-    },
-    {
-      id: 'sdfgbsd3456',
-      title: 'my test pipeline2',
-      projectId: 'sdfgf35345',
-      lineCoords: [
-        { x: 50.6208936116734, y: 18.98505879356 },
-        { x: 50.6108936116734, y: 18.99505879356 }
-      ]
-    }
+    // {
+    //   id: 'adfasdf213r12rqfsadf',
+    //   title: 'my test pipeline',
+    //   projectId: 'asdfasdfljshadfahsdf',
+    //   lineCoords: [
+    //     { x: 50.6108936116734, y: 18.97505879356 },
+    //     { x: 50.6008936116734, y: 18.98505879356 }
+    //   ]
+    // },
+    // {
+    //   id: 'sdfgbsd3456',
+    //   title: 'my test pipeline2',
+    //   projectId: 'sdfgf35345',
+    //   lineCoords: [
+    //     { x: 50.6208936116734, y: 18.98505879356 },
+    //     { x: 50.6108936116734, y: 18.99505879356 }
+    //   ]
+    // }
   ]);
 
   const addProjectId = useCallback(

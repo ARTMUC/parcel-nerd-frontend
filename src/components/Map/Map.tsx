@@ -11,6 +11,7 @@ import { ParcelInfo } from '../../interfaces/parcel-info.interface';
 import styles from './Map.module.css';
 import { MappedParcelInfo } from '../../interfaces/mapped-parcel-info.interface';
 import { Line } from '../../interfaces/line.type';
+import { getAllLines } from '../../services/linesService';
 
 const wmsProps = {
   opacity: 1,
@@ -39,7 +40,7 @@ const blueLines = { color: 'blue' };
 
 export const Map = ({ isCheckingBounds, isWmsShown }: MapProps) => {
   const { addToastMessage } = useToastMessageContext();
-  const { projectId, parcels, lines, setParcelsCtx } = useProjectContext();
+  const { projectId, parcels, lines, setParcelsCtx, setLinesCtx } = useProjectContext();
   const [map, setMap] = useState<L.Map>();
 
   const getPositions = (line: Line): [number, number][] => {
@@ -61,9 +62,23 @@ export const Map = ({ isCheckingBounds, isWmsShown }: MapProps) => {
     setParcelsCtx(parcels);
   }, [addToastMessage, projectId, setParcelsCtx]);
 
+  const fetchLinesData = useCallback(async () => {
+    if (!projectId) {
+      addToastMessage('Project not selected');
+      return;
+    }
+    const lines = await getAllLines(projectId);
+    if (!lines) {
+      addToastMessage('Failed getting lines info.');
+      return;
+    }
+    setLinesCtx(lines);
+  }, [addToastMessage, projectId, setLinesCtx]);
+
   useEffect(() => {
     fetchParcelsData();
-  }, [fetchParcelsData]);
+    fetchLinesData();
+  }, [fetchParcelsData, fetchLinesData]);
 
   const locate = () => {
     if (map) {

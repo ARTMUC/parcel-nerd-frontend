@@ -1,14 +1,38 @@
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import styles from './AddLine.module.css';
 import { LineCoordinates } from '../../../interfaces/line-coordinates.type';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { addLine } from '../../../services/linesService';
+import { CreateLine } from '../../../interfaces/createLine.type';
+import { useProjectContext } from '../../../hooks/useProjectContext';
+import { useState } from 'react';
+import { useToastMessageContext } from '../../../hooks/useToastMessageContext';
+
+const coordSystems = [
+  'EPSG:2180',
+  'EPSG:4326',
+  'EPSG:2177',
+  'EPSG:2179',
+  'EPSG:2176',
+  'EPSG:3120',
+  'EPSG:2178',
+  'EPSG:2174',
+  'EPSG:2173',
+  'EPSG:2172',
+  'EPSG:2175',
+  'EPSG:3328'
+];
+
+interface CreateLinesForm {
+  title: string;
+  lineCoords: string;
+  system: string;
+}
 
 export const AddLine = () => {
-  interface CreateLinesForm {
-    title: string;
-    lineCoords: string;
-    system: number;
-  }
+  const { projectId, lines, setLinesCtx } = useProjectContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const { addToastMessage } = useToastMessageContext();
 
   const {
     register,
@@ -27,19 +51,32 @@ export const AddLine = () => {
   };
 
   const onSubmit: SubmitHandler<CreateLinesForm> = async (data) => {
-    console.log(parseInput(data.lineCoords));
-    console.log(data.title, data.system, data.lineCoords);
-    handleAddNewPipeCoord(parseInput(data.lineCoords));
+    const parsedLineCoords = parseInput(data.lineCoords);
+    setIsLoading(true);
+    const newLine = await handleAddNewPipeCoord({
+      ...data,
+      lineCoords: parsedLineCoords
+    });
+    if (!lines || !newLine) {
+      addToastMessage('Error');
+      return;
+    }
+    setLinesCtx([...lines, newLine]);
+    addToastMessage('New line added succesfully');
+    setIsLoading(false);
   };
 
-  // console.log('Errors:', errors);
-
-  const handleAddNewPipeCoord = async (coords: LineCoordinates[]) => {
-    // const newLine = addLine()
-    // setIsLoading(true)
-    // const pipeConvertedCoords = await convertToDeg(coords)
-    // setPipeCoords(prev => [...prev, pipeConvertedCoords])
-    // setIsLoading(false)
+  const handleAddNewPipeCoord = async (lineData: CreateLine) => {
+    if (!projectId) {
+      addToastMessage('Error');
+      return;
+    }
+    const newLine = await addLine(lineData, projectId);
+    if (!newLine) {
+      addToastMessage('Failed adding new line.');
+      return;
+    }
+    return newLine;
   };
 
   return (
@@ -54,6 +91,7 @@ export const AddLine = () => {
           formState
         }) => (
           <TextField
+            className={styles.item1}
             error={invalid}
             id="outlined-multiline-flexible"
             label="Title"
@@ -78,6 +116,7 @@ export const AddLine = () => {
           formState
         }) => (
           <TextField
+            className={styles.item2}
             error={invalid}
             id="outlined-multiline-flexible"
             label="Pipe Coordinates"
@@ -104,25 +143,32 @@ export const AddLine = () => {
           fieldState: { invalid, isTouched, isDirty, error },
           formState
         }) => (
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <FormControl className={styles.item3}>
+            <InputLabel id="demo-simple-select-label">System</InputLabel>
             <Select
+              error={invalid}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={value || 10}
-              label="Age"
+              value={value || ''}
+              label="system"
               onChange={onChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {coordSystems.map((system) => (
+                <MenuItem key={system} value={system}>
+                  {system}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         )}
       />
-      <Button variant="contained" type="submit">
-        ADD NEW
-      </Button>
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <Button variant="contained" type="submit" className={styles.item4}>
+          ADD NEW
+        </Button>
+      )}
     </form>
   );
 };
