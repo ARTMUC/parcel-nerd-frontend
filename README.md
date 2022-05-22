@@ -4,8 +4,8 @@
 (so... it is a mess :poop:)
 
 :fire: BUT Right now I am refactoring it:
-- I'll try to follow atomic design principles,
-- I will switch from MUI to plain CSS to practice it (as I'm still not a CSS master yet)
+- I'll try to follow atomic design principles (or try similiar aproach to split app into modules),
+- I will switch from MUI to plain CSS to practice it,
 - I will use React Context API to store information.
 
 ## WHAT YOU CAN DO WITH IT?
