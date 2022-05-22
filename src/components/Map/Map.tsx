@@ -113,6 +113,14 @@ export const Map = ({ isCheckingBounds, isWmsShown }: MapProps) => {
     }));
 
   useEffect(() => {
+    if (!map) {
+      return;
+    }
+    const location: [number, number] = [lines[0].lineCoords[0].x, lines[0].lineCoords[0].y];
+    map.flyTo(location, 18);
+  }, [lines]);
+
+  useEffect(() => {
     if (!map) return () => {};
     if (isCheckingBounds) {
       map.on('click', async (e: L.LeafletMouseEvent) => {
@@ -140,10 +148,10 @@ export const Map = ({ isCheckingBounds, isWmsShown }: MapProps) => {
     <>
       <MapContainer
         center={[50.6108936116734, 18.97505879356]}
-        zoom={20}
+        zoom={21}
         scrollWheelZoom
         style={{ height: '100vh' }}
-        maxZoom={20}
+        maxZoom={21}
         whenCreated={(map) => setMap(map)}
       >
         {/* <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={20} eventHandlers={{ click: (e) => console.log(e) }} /> */}
@@ -151,7 +159,7 @@ export const Map = ({ isCheckingBounds, isWmsShown }: MapProps) => {
         <TileLayer
           url="http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
-          maxZoom={20}
+          maxZoom={21}
           eventHandlers={{ click: (e) => console.log(e) }}
         />
         {isWmsShown && (
