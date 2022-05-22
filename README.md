@@ -13,13 +13,15 @@
 - You'll be able to add Parcels (lots) based on coordinates from the map (onClick).
 - You'll be able to add Owners to given Parcels. 
 - Make Notes on the map and assign them to given Parcel or Owner.
-- Add Polilynes based on XY coordinates in any coordinates system existing in Poland.
+- Add Polylines based on XY coordinates in any coordinates system existing in Poland.
 
 ## SOME SCREENSHOTS:
 
 ![screenshot](https://raw.githubusercontent.com/ARTMUC/parcel-nerd-frontend/master/screenshots/Capture.PNG "screenshot")
 ![screenshot](https://raw.githubusercontent.com/ARTMUC/parcel-nerd-frontend/master/screenshots/Capture2.PNG "screenshot")
 ![screenshot](https://raw.githubusercontent.com/ARTMUC/parcel-nerd-frontend/master/screenshots/Capture3.PNG "screenshot")
+![screenshot](https://raw.githubusercontent.com/ARTMUC/parcel-nerd-frontend/master/screenshots/Capture4.PNG "screenshot")
+![screenshot](https://raw.githubusercontent.com/ARTMUC/parcel-nerd-frontend/master/screenshots/Capture5.PNG "screenshot")
 
 # Getting Started with Create React App
 
