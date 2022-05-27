@@ -12,23 +12,8 @@ import { FixedLoadingCircle } from '../../components/SharedUI/atoms/FixedLoading
 import { Lines } from '../../components/Lines/Lines/Lines';
 
 export const Dashboard = () => {
-  const [ownersInfoList, setOwnerInfoList] = useState<any[]>([]);
-
-  //// this is only temporary - data will be split on the backend probably
-  // useEffect(() => {
-  //     const xxx = parcelsInfoList.filter((e) => e.owner)
-  //     const owners = xxx.map((e) => {
-  //         const xxx = e.owner
-  //         return xxx.map((x: any) => {
-  //             return { ...x, parcelId: e.id }
-  //         })
-
-  //     })
-  //     const zzz = owners.flat()
-  //     setOwnerInfoList(zzz)
-  // }, [parcelsInfoList])
-  ////
-
+  // @TODO: combine all switches into one object and create one function to handle state
+  const [ownersInfoList, setOwnerInfoList] = useState<any[]>([]); // temporary
   const [isLoading, setIsLoading] = useState(false);
   const [isCheckingBounds, setIsCheckingBounds] = useState(false);
   const [isWmsShown, setIsWmsShown] = useState(true);
@@ -36,18 +21,10 @@ export const Dashboard = () => {
   const [isParcelListShown, setIsParcelListShown] = useState(false);
   const [isOwnersListShown, setIsOwnersListShown] = useState(false);
 
-  // const handleChangeParcelList = (params: GridEditCellPropsParams) => {
-  //     setParcelsInfoList((prev) => prev.map((parcel) => parcel.id === params.id ? { ...parcel, [params.field]: params.props.value } : parcel))
-  // }
-
   const handleTogglePipeEdit = () => setIsPipeEdit((prev) => !prev);
-
   const handleToggleParcelList = () => setIsParcelListShown((prev) => !prev);
-
   const handleToggleOwnersList = () => setIsOwnersListShown((prev) => !prev);
-
   const toggleCheckBounds = () => setIsCheckingBounds((prev) => !prev);
-
   const toggleWMSDisplay = () => setIsWmsShown((prev) => !prev);
 
   return (
