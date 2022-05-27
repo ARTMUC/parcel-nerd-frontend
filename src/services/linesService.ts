@@ -41,6 +41,19 @@ export const addLine = async (createLine: CreateLine, projectId: string): Promis
   }
 };
 
-//
-// @TODO: implement remove
-//
+export const removeLine = async (lineId: string): Promise<any | void> => {
+  try {
+    const response = await fetch(`${API_URL}lines/${lineId}`, {
+      credentials: 'include',
+      method: 'DELETE'
+    });
+    const body: any | ServerError = await response.json();
+
+    return mapServerResponse<any>(response, body);
+  } catch (error: unknown) {
+    if (error instanceof FetchError) {
+      throw error;
+    }
+    throw new Error(defaultErrMessage);
+  }
+};

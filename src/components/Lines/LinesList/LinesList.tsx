@@ -7,14 +7,7 @@ import styles from './LinesList.module.css';
 import { useProjectContext } from '../../../hooks/useProjectContext';
 import { Line } from '../../../interfaces/line.type';
 
-export const LinesList = ({ lines }: LineListProps) => {
-  const handleDeletePipeCoord = (e: { target: { dataset: { index: string } } }) => {
-    // const elementIndex = e.target.dataset.index;
-    // setPipeCoords((prev) => {
-    //     return prev.filter((el, index) => +elementIndex !== index)
-    // })
-  };
-
+export const LinesList = ({ lines, handleDeletePipeCoord }: LineListProps) => {
   return (
     <ul className={styles.pipe_list}>
       {lines.length > 0 &&
@@ -25,7 +18,7 @@ export const LinesList = ({ lines }: LineListProps) => {
               <Button
                 variant="outlined"
                 data-index={line.id}
-                // onClick={(e) => handleDeletePipeCoord(e)}
+                onClick={() => handleDeletePipeCoord(line.id)}
                 startIcon={<DeleteIcon />}
               >
                 Delete
@@ -39,4 +32,5 @@ export const LinesList = ({ lines }: LineListProps) => {
 
 type LineListProps = {
   lines: Line[];
+  handleDeletePipeCoord: (id: string) => void;
 };

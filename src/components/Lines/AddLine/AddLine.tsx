@@ -67,16 +67,23 @@ export const AddLine = () => {
   };
 
   const handleAddNewPipeCoord = async (lineData: CreateLine) => {
-    if (!projectId) {
-      addToastMessage('Error');
-      return;
+    try {
+      if (!projectId) {
+        addToastMessage('Error');
+        return;
+      }
+      const newLine = await addLine(lineData, projectId);
+      if (!newLine) {
+        addToastMessage('Failed adding new line.');
+        return;
+      }
+      return newLine;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        addToastMessage(error.message);
+        setIsLoading(false);
+      }
     }
-    const newLine = await addLine(lineData, projectId);
-    if (!newLine) {
-      addToastMessage('Failed adding new line.');
-      return;
-    }
-    return newLine;
   };
 
   return (

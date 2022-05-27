@@ -11,15 +11,24 @@ import { LinesList } from '../LinesList/LinesList';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { AddLine } from '../AddLine/AddLine';
+import { removeLine } from '../../../services/linesService';
+import { useToastMessageContext } from '../../../hooks/useToastMessageContext';
 
 export const Lines = ({ handleTogglePipeEdit, isPipeEdit }: LineProps) => {
   const { lines, setLinesCtx } = useProjectContext();
+  const { addToastMessage } = useToastMessageContext();
 
-  const handleDeletePipeCoord = (e: { target: { dataset: { index: string } } }) => {
-    // const elementIndex = e.target.dataset.index;
-    // setPipeCoords((prev) => {
-    //     return prev.filter((el, index) => +elementIndex !== index)
-    // })
+  const handleDeletePipeCoord = async (id: string) => {
+    try {
+      const responce = await removeLine(id);
+      const newLines = lines.filter((line) => line.id !== id);
+      setLinesCtx(newLines);
+      addToastMessage('Line removed');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        addToastMessage(error.message);
+      }
+    }
   };
 
   return (
@@ -37,7 +46,7 @@ export const Lines = ({ handleTogglePipeEdit, isPipeEdit }: LineProps) => {
             </IconButton>
           </div>
           <AddLine />
-          <LinesList lines={lines} />
+          <LinesList lines={lines} handleDeletePipeCoord={handleDeletePipeCoord} />
         </div>
       </Box>
     </Modal>
