@@ -6,8 +6,8 @@ import styles from './Dashboard.module.css';
 import { LineCoordinates } from '../../interfaces/line-coordinates.type';
 
 import { Hub } from '../../components/Hub';
-import { ParcelList } from '../../components/ParcelList';
-import { OwnerList } from '../../components/OwnerList';
+import { ParcelList } from '../../components/ParcelList/ParcelList';
+import { OwnerList } from '../../components/OwnersList/OwnerList';
 import { FixedLoadingCircle } from '../../components/SharedUI/atoms/FixedLoadingCircle/FixedLoadingCircle';
 import { Lines } from '../../components/Lines/Lines/Lines';
 

@@ -58,7 +58,6 @@ export const AddLine = () => {
       lineCoords: parsedLineCoords
     });
     if (!lines || !newLine) {
-      addToastMessage('Error');
       return;
     }
     setLinesCtx([...lines, newLine]);

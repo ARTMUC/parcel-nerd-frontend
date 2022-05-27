@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { ParcelInfo } from '../interfaces/parcel-info.interface';
+import { ParcelInfo } from '../../interfaces/parcel-info.interface';
 import { Box, Button, Modal } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
