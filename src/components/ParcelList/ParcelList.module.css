@@ -26,13 +26,11 @@
   height: 90%;
 }
 
-.button_close {
-  margin-top: 5px;
-  margin-left: auto;
-}
+
 
 .btn_container {
   /* margin: 15px; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
+

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Box, Button, InputLabel, MenuItem, Modal, Select } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Modal, Select } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+
 import styles from './ParcelList.module.css';
 import {
   DataGrid,
@@ -18,12 +18,21 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useToastMessageContext } from '../../hooks/useToastMessageContext';
 import { useProjectContext } from '../../hooks/useProjectContext';
+import { CloseButton } from '../SharedUI/atoms/CloseButton/CloseButton';
+import { DataGridSelect } from '../SharedUI/atoms/DataGridSelect/DataGridSelect';
+import { StatusOption } from '../../interfaces/status-options.type';
 
 export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: ParcelListProps) => {
   const { parcels, projectId, lines, setLinesCtx } = useProjectContext();
   const { addToastMessage } = useToastMessageContext();
 
-  const options = ['done', 'problems', 'warning'];
+  // const options = ['Approved', 'Rejected', 'Warning', 'Irrelevant'];
+  const parcelStatusOptions: StatusOption[] = [
+    { name: 'Approved', color: 'green' },
+    { name: 'Rejected', color: 'red' },
+    { name: 'Warning', color: 'yellow' },
+    { name: 'Irrelevant', color: 'grey' }
+  ];
 
   const columns: GridColDef[] = [
     {
@@ -42,7 +51,7 @@ export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: Parcel
         </strong>
       )
     },
-    { field: 'parcelNumber', headerName: 'Parcel number', width: 300 },
+    { field: 'parcelNumber', headerName: 'Parcel number', width: 250 },
     { field: 'voivodeship', headerName: 'Voivodeship', width: 150 },
     { field: 'county', headerName: 'County', width: 150 },
     { field: 'commune', headerName: 'Commune', width: 150 },
@@ -52,25 +61,19 @@ export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: Parcel
       field: 'status',
       headerName: 'status',
       width: 100,
-      renderCell: (params: GridRenderCellParams<Date>) => (
-        <div>
-          {/* <InputLabel id="demo-simple-select-label">System</InputLabel> */}
-          <Select
-            defaultValue={'true'}
-            // error={invalid}
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            // value={value || ''}
-            label="system"
-            // onChange={onChange}
-          >
-            {options.map((status) => (
-              <MenuItem key={status} value={status}>
-                {status}
-              </MenuItem>
-            ))}
-          </Select>
-        </div>
+      renderCell: (params: GridRenderCellParams<string>) => (
+        <DataGridSelect
+          options={parcelStatusOptions}
+          handleOnClick={(e) => console.log(params.id, e.target.value)}
+          params={params}
+        />
+        // <select onChange={(e) => console.log(params.id, e.target.value)}>
+        //   {options.map((status) => (
+        //     <option key={status} value={status}>
+        //       {status}
+        //     </option>
+        //   ))}
+        // </select>
       )
     }
   ];
@@ -83,11 +86,7 @@ export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: Parcel
       aria-describedby="modal-modal-description"
     >
       <div className={styles.container}>
-        <div className={styles.button_close}>
-          <IconButton onClick={handleToggleParcelList} color="secondary">
-            <CloseIcon fontSize="large" />
-          </IconButton>
-        </div>
+        <CloseButton handleClick={handleToggleParcelList} />
         <div className={styles.list}>
           <DataGrid
             editMode="row"
