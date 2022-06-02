@@ -18,9 +18,11 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useToastMessageContext } from '../../hooks/useToastMessageContext';
 import { useProjectContext } from '../../hooks/useProjectContext';
-import { CloseButton } from '../SharedUI/atoms/CloseButton/CloseButton';
-import { DataGridSelect } from '../SharedUI/atoms/DataGridSelect/DataGridSelect';
+import { CloseButton } from '../SharedUI/CloseButton/CloseButton';
+import { StatusSelect } from './StatusSelect/StatusSelect';
 import { StatusOption } from '../../interfaces/status-options.type';
+import { StatusName } from '../../interfaces/parcel-status-name.type';
+import { ParcelInfo } from '../../interfaces/parcel-info.interface';
 
 export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: ParcelListProps) => {
   const { parcels, projectId, lines, setLinesCtx } = useProjectContext();
@@ -28,10 +30,11 @@ export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: Parcel
 
   // const options = ['Approved', 'Rejected', 'Warning', 'Irrelevant'];
   const parcelStatusOptions: StatusOption[] = [
-    { name: 'Approved', color: 'green' },
-    { name: 'Rejected', color: 'red' },
-    { name: 'Warning', color: 'yellow' },
-    { name: 'Irrelevant', color: 'grey' }
+    { name: StatusName.APPROVED, color: 'green' },
+    { name: StatusName.REJECTED, color: 'rgb(211, 47, 47)' },
+    { name: StatusName.WARNING, color: 'yellow' },
+    { name: StatusName.OPEN, color: 'blue' },
+    { name: StatusName.IRRELEVANT, color: 'grey' }
   ];
 
   const columns: GridColDef[] = [
@@ -61,19 +64,12 @@ export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: Parcel
       field: 'status',
       headerName: 'status',
       width: 100,
-      renderCell: (params: GridRenderCellParams<string>) => (
-        <DataGridSelect
+      renderCell: (params: GridRenderCellParams<ParcelInfo>) => (
+        <StatusSelect
           options={parcelStatusOptions}
           handleOnClick={(e) => console.log(params.id, e.target.value)}
           params={params}
         />
-        // <select onChange={(e) => console.log(params.id, e.target.value)}>
-        //   {options.map((status) => (
-        //     <option key={status} value={status}>
-        //       {status}
-        //     </option>
-        //   ))}
-        // </select>
       )
     }
   ];

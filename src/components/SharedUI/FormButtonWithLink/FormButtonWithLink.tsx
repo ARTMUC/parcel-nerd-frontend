@@ -1,8 +1,8 @@
 import { type } from 'os';
 import React from 'react';
-import { FormButton } from '../../atoms/FormButton/FormButton';
-import { CustomLink } from '../../atoms/Link/CustomLink';
-import { LoadingCircle } from '../../atoms/LoadingCircle/LoadingCircle';
+import { FormButton } from '../FormButton/FormButton';
+import { CustomLink } from '../Link/CustomLink';
+import { LoadingCircle } from '../LoadingCircle/LoadingCircle';
 
 import styles from './FormButtonWithLink.module.css';
 

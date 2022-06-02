@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAuthContext } from '../../../hooks/useAuthContext';
 import { useToastMessageContext } from '../../../hooks/useToastMessageContext';
-import { CreateProject } from '../../../interfaces/createProject.interface';
 import { Project } from '../../../interfaces/project.interface';
-import { addProject, getAllProjects, patchProject } from '../../../services/projectsService';
-import { FormButton } from '../../SharedUI/atoms/FormButton/FormButton';
+import { addProject, patchProject } from '../../../services/projectsService';
+import { FormButton } from '../../SharedUI/FormButton/FormButton';
 
 import styles from './ProjectCreateEdit.module.css';
-import { InputWithError } from '../../SharedUI/molecules/InputWithError/InputWithError';
-import { LoadingCircle } from '../../SharedUI/atoms/LoadingCircle/LoadingCircle';
-import { Container } from '../../SharedUI/atoms/Container/Container';
+import { InputWithError } from '../../SharedUI/InputWithError/InputWithError';
+import { LoadingCircle } from '../../SharedUI/LoadingCircle/LoadingCircle';
+import { Container } from '../../SharedUI/Container/Container';
 
 export const ProjectCreateEdit = ({ editProject, isCreateEdit }: ProjectCreateEditProps) => {
   const { addToastMessage } = useToastMessageContext();

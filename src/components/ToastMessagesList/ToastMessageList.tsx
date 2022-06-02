@@ -1,5 +1,5 @@
 import { ToastMessageInterface } from '../../context/ToastMessageContext';
-import { ToastMessage } from '../SharedUI/atoms/ToastMessage/ToastMessage';
+import { ToastMessage } from '../SharedUI/ToastMessage/ToastMessage';
 import styles from './ToastMessageList.module.css';
 
 export const ToastMessageList = ({ messages }: ToastMessageListProps) => {

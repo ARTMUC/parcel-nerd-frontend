@@ -8,7 +8,7 @@ import { LineCoordinates } from '../../interfaces/line-coordinates.type';
 import { Hub } from '../../components/Hub';
 import { ParcelList } from '../../components/ParcelList/ParcelList';
 import { OwnerList } from '../../components/OwnersList/OwnerList';
-import { FixedLoadingCircle } from '../../components/SharedUI/atoms/FixedLoadingCircle/FixedLoadingCircle';
+import { FixedLoadingCircle } from '../../components/SharedUI/FixedLoadingCircle/FixedLoadingCircle';
 import { Lines } from '../../components/Lines/Lines/Lines';
 
 export const Dashboard = () => {

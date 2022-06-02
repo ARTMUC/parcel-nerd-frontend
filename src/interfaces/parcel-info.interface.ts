@@ -1,4 +1,5 @@
 import { ParcelBounds } from './parcel-boundaries.type';
+import { StatusName } from './parcel-status-name.type';
 
 export interface ParcelInfo {
   id: string;
@@ -11,4 +12,5 @@ export interface ParcelInfo {
   projectId: string;
   userId: string;
   parcelBounds: ParcelBounds[];
+  statusName: StatusName;
 }

@@ -1,4 +1,6 @@
+import { StatusName } from './parcel-status-name.type';
+
 export type StatusOption = {
-  name: string;
+  name: StatusName;
   color: string;
 };

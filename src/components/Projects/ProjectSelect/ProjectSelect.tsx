@@ -1,15 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useProjectContext } from '../../../hooks/useProjectContext';
 import { useToastMessageContext } from '../../../hooks/useToastMessageContext';
 import { Project } from '../../../interfaces/project.interface';
 import { getAllProjects } from '../../../services/projectsService';
-import { Container } from '../../SharedUI/atoms/Container/Container';
-import { FormButton } from '../../SharedUI/atoms/FormButton/FormButton';
-import { Button } from '../../SharedUI/atoms/RoundButton/Button';
-import { Select } from '../../SharedUI/atoms/Select/Select';
-import { SmallModal } from '../../SharedUI/atoms/SmallModal/SmallModal';
+import { Container } from '../../SharedUI/Container/Container';
+import { Button } from '../../SharedUI/RoundButton/Button';
+import { SmallModal } from '../../SharedUI/SmallModal/SmallModal';
 import { FiSettings } from 'react-icons/fi';
 
 import styles from './ProjectSelect.module.css';

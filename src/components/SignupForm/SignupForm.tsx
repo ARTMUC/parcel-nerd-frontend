@@ -5,11 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useToastMessageContext } from '../../hooks/useToastMessageContext';
 import { RegisterData } from '../../interfaces/register-data.interface';
 import { registerUser } from '../../services/authService';
-import { Container } from '../SharedUI/atoms/Container/Container';
-import { IconGlobe } from '../SharedUI/atoms/IconGlobe/IconGlobe';
-import { SmallModal } from '../SharedUI/atoms/SmallModal/SmallModal';
-import { FormButtonWithLink } from '../SharedUI/molecules/FormButtonWithLink/FormButtonWithLink';
-import { InputWithError } from '../SharedUI/molecules/InputWithError/InputWithError';
+import { Container } from '../SharedUI/Container/Container';
+import { IconGlobe } from '../SharedUI/IconGlobe/IconGlobe';
+import { SmallModal } from '../SharedUI/SmallModal/SmallModal';
+import { FormButtonWithLink } from '../SharedUI/FormButtonWithLink/FormButtonWithLink';
+import { InputWithError } from '../SharedUI/InputWithError/InputWithError';
 
 import styles from './SignupForm.module.css';
 

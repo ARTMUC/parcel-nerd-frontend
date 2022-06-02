@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldError, FieldValues, UseFormRegister, UseFormRegisterReturn } from 'react-hook-form';
-import { ErrorMessage } from '../../atoms/Error/ErrorMessage';
-import { FormInput } from '../../atoms/Input/FormInput';
+import { ErrorMessage } from '../Error/ErrorMessage';
+import { FormInput } from '../Input/FormInput';
 import styles from './InputWithError.module.css';
 
 export const InputWithError = (props: InputWithErrorProps) => {
