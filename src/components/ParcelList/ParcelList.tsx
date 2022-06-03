@@ -5,15 +5,7 @@ import { Box, Button, FormControl, InputLabel, MenuItem, Modal, Select } from '@
 import IconButton from '@mui/material/IconButton';
 
 import styles from './ParcelList.module.css';
-import {
-  DataGrid,
-  GridRowsProp,
-  GridColDef,
-  GridColumns,
-  useGridApiRef,
-  GridEditCellPropsParams,
-  GridRenderCellParams
-} from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import LaunchIcon from '@mui/icons-material/Launch';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useToastMessageContext } from '../../hooks/useToastMessageContext';
@@ -30,11 +22,11 @@ export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: Parcel
 
   // const options = ['Approved', 'Rejected', 'Warning', 'Irrelevant'];
   const parcelStatusOptions: StatusOption[] = [
-    { name: StatusName.APPROVED, color: 'green' },
-    { name: StatusName.REJECTED, color: 'rgb(211, 47, 47)' },
-    { name: StatusName.WARNING, color: 'yellow' },
-    { name: StatusName.OPEN, color: 'blue' },
-    { name: StatusName.IRRELEVANT, color: 'grey' }
+    { name: StatusName.APPROVED, color: 'Approved' },
+    { name: StatusName.REJECTED, color: 'Rejected' },
+    { name: StatusName.WARNING, color: 'Warning' },
+    { name: StatusName.OPEN, color: 'Open' },
+    { name: StatusName.IRRELEVANT, color: 'Irrelevant' }
   ];
 
   const columns: GridColDef[] = [
@@ -85,10 +77,25 @@ export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: Parcel
         <CloseButton handleClick={handleToggleParcelList} />
         <div className={styles.list}>
           <DataGrid
+            getRowClassName={(params) => {
+              const currentColor = parcelStatusOptions.filter((status) => status.name === params.row.statusName)[0]
+                .color;
+              // return styles[`row_${params.row.statusName}`];
+              return styles[`row_${currentColor}`];
+            }}
             editMode="row"
             rows={parcels}
             columns={columns}
             onEditCellPropsChange={(params) => console.log(params)}
+            sx={{
+              // boxShadow: 2,
+              // border: 2,
+              // borderColor: 'primary.light',
+              '& .MuiDataGrid-row:hover': {
+                color: 'secondary.main',
+                backgroundColor: 'primary.light'
+              }
+            }}
           />
         </div>
       </div>

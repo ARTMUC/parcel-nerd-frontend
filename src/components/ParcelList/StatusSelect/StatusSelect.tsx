@@ -19,10 +19,11 @@ export const StatusSelect = ({ handleOnClick, options, params }: StatusSelectPro
     setOptionValue({ name, color });
   };
 
+  // move the UI part to the sharedUI folder
   return (
     <select
       value={optionValue.name}
-      style={{ backgroundColor: optionValue?.color }}
+      // style={{ backgroundColor: optionValue?.color }}
       className={styles.select}
       onChange={(e) => click(e)}
     >
@@ -32,7 +33,7 @@ export const StatusSelect = ({ handleOnClick, options, params }: StatusSelectPro
           key={index}
           data-color={option.color}
           value={option.name}
-          style={{ backgroundColor: option.color }}
+          // style={{ backgroundColor: option.color }}
         >
           {option.name}
         </option>
