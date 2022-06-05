@@ -1,5 +1,6 @@
 import { ParcelInfo } from '../interfaces/parcel-info.interface';
 import { ServerError } from '../interfaces/server-error.interface';
+import { UpdateParcel } from '../interfaces/update-parcel.interface';
 import { API_URL, defaultErrMessage, FetchError, mapServerResponse } from './fetchUtils';
 
 export const getAllParcels = async (projectId: string): Promise<ParcelInfo[] | void> => {
@@ -23,6 +24,29 @@ export const addNewParcelByXY = async (projectId: string, x: number, y: number):
     const response = await fetch(`${API_URL}parcels/getParcelByXY/${projectId}`, {
       credentials: 'include',
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: data
+    });
+    const body: ParcelInfo | ServerError = await response.json();
+
+    return mapServerResponse<ParcelInfo>(response, body);
+  } catch (error: unknown) {
+    if (error instanceof FetchError) {
+      throw error;
+    }
+    throw new Error(defaultErrMessage);
+  }
+};
+
+export const updateParcel = async (parcelId: string, parcelData: UpdateParcel): Promise<ParcelInfo | void> => {
+  try {
+    const data = JSON.stringify(parcelData);
+
+    const response = await fetch(`${API_URL}parcels/${parcelId}`, {
+      credentials: 'include',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },

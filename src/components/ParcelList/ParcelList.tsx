@@ -15,19 +15,51 @@ import { StatusSelect } from './StatusSelect/StatusSelect';
 import { StatusOption } from '../../interfaces/status-options.type';
 import { StatusName } from '../../interfaces/parcel-status-name.type';
 import { ParcelInfo } from '../../interfaces/parcel-info.interface';
+import { UpdateParcel } from '../../interfaces/update-parcel.interface';
+import { updateParcel } from '../../services/parcelsService';
+
+const parcelStatusOptions: StatusOption[] = [
+  { name: StatusName.APPROVED, color: 'Approved' },
+  { name: StatusName.REJECTED, color: 'Rejected' },
+  { name: StatusName.WARNING, color: 'Warning' },
+  { name: StatusName.OPEN, color: 'Open' },
+  { name: StatusName.IRRELEVANT, color: 'Irrelevant' }
+];
 
 export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: ParcelListProps) => {
-  const { parcels, projectId, lines, setLinesCtx } = useProjectContext();
+  const { parcels, setParcelsCtx, projectId, lines, setLinesCtx } = useProjectContext();
   const { addToastMessage } = useToastMessageContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   // const options = ['Approved', 'Rejected', 'Warning', 'Irrelevant'];
-  const parcelStatusOptions: StatusOption[] = [
-    { name: StatusName.APPROVED, color: 'Approved' },
-    { name: StatusName.REJECTED, color: 'Rejected' },
-    { name: StatusName.WARNING, color: 'Warning' },
-    { name: StatusName.OPEN, color: 'Open' },
-    { name: StatusName.IRRELEVANT, color: 'Irrelevant' }
-  ];
+
+  const updateParcelData = async (parcelId: string, field: string, value: string) => {
+    if (!value) {
+      return;
+    }
+    setIsLoading(true);
+    const data = { [field]: value } as UpdateParcel;
+    try {
+      const response = await updateParcel(parcelId, data);
+      if (response) {
+        const updatedParcelsList = parcels.map((parcel) => {
+          if (parcel.id === parcelId) {
+            return { ...parcel, ...data };
+          } else {
+            return parcel;
+          }
+        });
+        setParcelsCtx(updatedParcelsList);
+        addToastMessage('Parcel successfully updated');
+        setIsLoading(false);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        addToastMessage(error.message);
+        setIsLoading(false);
+      }
+    }
+  };
 
   const columns: GridColDef[] = [
     {
@@ -53,13 +85,14 @@ export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: Parcel
     { field: 'KW', headerName: 'KW', width: 150, editable: true },
     { field: 'class', headerName: 'Class', width: 150, editable: true },
     {
-      field: 'status',
+      field: 'statusName',
       headerName: 'status',
       width: 100,
       renderCell: (params: GridRenderCellParams<ParcelInfo>) => (
         <StatusSelect
           options={parcelStatusOptions}
-          handleOnClick={(e) => console.log(params.id, e.target.value)}
+          // handleOnClick={(e) => console.log(params, e.target.value)}
+          handleOnClick={(e) => updateParcelData(String(params.id), params.field, e.target.value)}
           params={params}
         />
       )
@@ -76,6 +109,7 @@ export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: Parcel
       <div className={styles.container}>
         <CloseButton handleClick={handleToggleParcelList} />
         <div className={styles.list}>
+          {isLoading && 'Loading...'}
           <DataGrid
             getRowClassName={(params) => {
               const currentColor = parcelStatusOptions.filter((status) => status.name === params.row.statusName)[0]
@@ -92,7 +126,6 @@ export const ParcelList = ({ isParcelListShown, handleToggleParcelList }: Parcel
               // border: 2,
               // borderColor: 'primary.light',
               '& .MuiDataGrid-row:hover': {
-                color: 'secondary.main',
                 backgroundColor: 'primary.light'
               }
             }}

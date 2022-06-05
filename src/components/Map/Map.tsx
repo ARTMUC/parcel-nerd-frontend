@@ -166,16 +166,17 @@ export const Map = ({ isCheckingBounds, isWmsShown }: MapProps) => {
           <WMSTileLayer {...wmsProps} {...parcelsWmsUrl} eventHandlers={{ load: (e) => console.log('wms loaded') }} />
         )}
         {isWmsShown && <WMSTileLayer {...wmsProps} {...civilWmsUrl} />}
-        {mapParcelsData(parcels).map((parcel, index) => (
-          <Polygon
-            eventHandlers={{ click: (e) => identifyParcelOnMap(e) }}
-            data-set={parcel.id}
-            key={index}
-            className={styles.parcel}
-            pathOptions={redLines}
-            positions={parcel.parcelBounds}
-          />
-        ))}
+        {parcels.length > 0 &&
+          mapParcelsData(parcels).map((parcel, index) => (
+            <Polygon
+              eventHandlers={{ click: (e) => identifyParcelOnMap(e) }}
+              data-set={parcel.id}
+              key={index}
+              className={styles.parcel}
+              pathOptions={redLines}
+              positions={parcel.parcelBounds}
+            />
+          ))}
         {lines.map((line, index) => {
           const positions = getPositions(line);
           return (
