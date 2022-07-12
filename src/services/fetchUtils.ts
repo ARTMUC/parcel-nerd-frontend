@@ -1,6 +1,9 @@
 import { ServerError } from '../interfaces/server-error.interface';
+import { logoutUser } from './authService';
 
 export const API_URL = 'http://localhost:3000/';
+
+export const FRONT_URL = 'http://localhost:3001/';
 
 export const defaultErrMessage = 'Something went wrong. Please try again later';
 
@@ -20,6 +23,9 @@ export const mapServerResponse = <T>(response: Response, body: T | ServerError):
     case 404:
     case 500:
       if ('message' in body) throw new FetchError(body.message);
+      break;
+    case 401:
+      logoutUser();
       break;
     default:
       throw new FetchError(defaultErrMessage);

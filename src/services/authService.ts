@@ -1,7 +1,7 @@
 import { LoginData } from '../interfaces/login-data.interface';
 import { RegisterData } from '../interfaces/register-data.interface';
 import { User } from '../interfaces/user.interface';
-import { API_URL, defaultErrMessage, FetchError, mapServerResponse } from './fetchUtils';
+import { API_URL, defaultErrMessage, FetchError, FRONT_URL, mapServerResponse } from './fetchUtils';
 
 export const loginUser = async (loginData: LoginData): Promise<User | void> => {
   try {
@@ -55,11 +55,11 @@ export const registerUser = async (registerData: RegisterData): Promise<void | U
 export const logoutUser = async () => {
   try {
     localStorage.removeItem('parcelNerd-user');
-    await fetch(`${API_URL}auth/signout`, {
+    fetch(`${API_URL}auth/signout`, {
       method: 'GET',
       credentials: 'include'
     });
-    return;
+    window.location.href = `${FRONT_URL}signin`;
   } catch (error: unknown) {
     if (error instanceof Error) {
       throw new Error(defaultErrMessage);

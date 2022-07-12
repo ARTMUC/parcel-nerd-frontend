@@ -1,5 +1,9 @@
-import React, { useCallback, useState, createContext, useEffect } from 'react';
+import React, { useCallback, useState, createContext, useEffect, useReducer } from 'react';
 import { User } from '../interfaces/user.interface';
+
+type UserAction = { type: 'LOGIN'; user: User } | { type: 'LOGOUT' };
+
+const userReducer = (state: User, action: Readonly<UserAction>): User | void => {};
 
 export interface AuthContextType {
   userState: User | null;
@@ -32,6 +36,15 @@ export const AuthContextProvider: React.FC = ({ children }) => {
   const removeUserContext = useCallback(() => {
     setUserState(null);
   }, [setUserState]);
+
+  // const [user, dispatch] = useReducer((state, action) => {
+  //   switch(action.type) {
+  //     case 'LOGIN':
+  //       return  action.payload
+  //     default:
+  //       return state
+  //   }
+  // }, initialState);
 
   return (
     <AuthContext.Provider value={{ userState, addUserContext, removeUserContext }}>{children}</AuthContext.Provider>
